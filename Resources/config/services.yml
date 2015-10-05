@@ -1,0 +1,6 @@
+services:
+
+  tm_solution_form_type.chekbox_swich:
+        class: TMSolution\FormTypeBundle\Form\CheckboxSwitchType
+        tags:
+            - { name: form.type, alias: checkbox_switch }

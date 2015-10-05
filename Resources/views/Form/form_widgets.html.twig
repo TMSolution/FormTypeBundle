@@ -1,0 +1,18 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{%- block checkbox_switch_widget -%}
+
+    <label class="switch">
+       
+        <input autocomplete="false" type="checkbox" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+        <span class="switch-label" data-off="{{attr.off}}" data-on="{{attr.on}}"></span>
+        <span class="switch-handle"></span>
+    </label>
+    
+{%- endblock checkbox_switch_widget -%}
+   {# <label class="switch">
+      <input type="checkbox" class="switch-input">
+      <span class="switch-label" data-on="On" data-off="Off"></span>
+      <span class="switch-handle"></span>
+    </label>#}
+    
