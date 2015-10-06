@@ -4,3 +4,26 @@ services:
         class: TMSolution\FormTypeBundle\Form\CheckboxSwitchType
         tags:
             - { name: form.type, alias: checkbox_switch }
+            
+            
+  tm_solution_form_type.color:
+        class: TMSolution\FormTypeBundle\Form\ColorType
+        tags:
+            - { name: form.type, alias: color }
+            
+  tm_solution_form_type.datepicker:
+        class: TMSolution\FormTypeBundle\Form\DatePickerType
+        tags:
+            - { name: form.type, alias: datepicker}
+  
+  tm_solution_form_type.timer:
+        class: TMSolution\FormTypeBundle\Form\TimerType
+        tags:
+            - { name: form.type, alias: timer}
+            
+  tm_solution_form_type.twig.form_type_extension:
+    class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
+    tags:
+            - { name: twig.extension }
+            
+     

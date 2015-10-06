@@ -12,38 +12,29 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CheckboxSwitchType extends AbstractType {
+class TimerType extends AbstractType {
 
     public function getParent() {
-        return 'checkbox';
+        return 'date';
     }
 
     public function getName() {
-        return 'checkbox_switch';
+        return 'timer';
     }
 
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'on' => 'on',
-            'off' => 'off',
+            'lazyjs' => true,
+            'icon' => 'glyphicon-time'
         ));
-        $resolver->setNormalizer('attr', function ($options, $value) {
-            if ($value["class"]) {
-                $value["class"] = " " . $value["class"];
-            }
-            $value["class"] = "switch-input" . $value["class"];
-
-            return $value;
-        });
     }
 
     /**
      * {@inheritDoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
-        $view->vars['on'] = $options['on'];
-        $view->vars['off'] = $options['off'];
+        $view->vars['lazyjs'] = $options['lazyjs'];
+        $view->vars['icon'] = $options['icon'];
     }
 
     /**
@@ -51,9 +42,12 @@ class CheckboxSwitchType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->setAttribute('on', $options['on'])
-                ->setAttribute('off', $options['off'])
+                ->setAttribute('lazyjs', $options['lazyjs'])
+                ->setAttribute('icon', $options['icon'])
+
         ;
     }
+
+    
 
 }
