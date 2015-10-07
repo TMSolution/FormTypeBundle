@@ -21,6 +21,11 @@ services:
         tags:
             - { name: form.type, alias: timer}
             
+  tm_solution_form_type.fileupload:
+        class: TMSolution\FormTypeBundle\Form\FileUploadType
+        tags:
+            - { name: form.type, alias: fileupload}
+            
   tm_solution_form_type.twig.form_type_extension:
     class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
     tags:
