@@ -14,20 +14,23 @@ class FormTypeExtension extends \Twig_Extension {
     protected $jsblocks = [];
     protected $csslinks = [];
     protected $environment;
+    protected $globalEnvironment;
 
-    public function initRuntime(\Twig_Environment $environment) {
-       // $this->environment = $environment;
+    public function initRuntime(\Twig_Environment $globalEnvironment) {
+        $this->globalEnvironment = $globalEnvironment;
         $this->environment = new \Twig_Environment(new \Twig_Loader_String());
     }
 
     public function getFunctions() {
         return [
-            new \Twig_SimpleFunction('jsblocklater', [$this, 'jsblocklater']),
-            new \Twig_SimpleFunction('jsblocknow', [$this, 'jsblocknow']),
-            new \Twig_SimpleFunction('jslater', [$this, 'jslater']),
-            new \Twig_SimpleFunction('jsnow', [$this, 'jsnow']),
-            new \Twig_SimpleFunction('cssnow', [$this, 'cssnow']),
-            new \Twig_SimpleFunction('csslater', [$this, 'csslater'])
+            new \Twig_SimpleFunction('jsblocklater', [$this, 'jsblocklater'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('jsblocknow', [$this, 'jsblocknow'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('jslater', [$this, 'jslater'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('jsnow', [$this, 'jsnow'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('cssnow', [$this, 'cssnow'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('csslater', [$this, 'csslater'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('render_block', [$this, 'renderBlock'],['is_safe' =>["html"]]),
+            new \Twig_SimpleFunction('render_multifile', [$this, 'renderMultifile'],['is_safe' =>["html"]])
         ];
     }
 
@@ -38,7 +41,7 @@ class FormTypeExtension extends \Twig_Extension {
     public function jsblocknow() {
         $template = '{% for jsblock in jsblocks %}{{jsblock|raw}}{% endfor %}';
         $jsparam = $this->environment->render($template, ['jsblocks' => $this->jsblocks]);
-        dump($jsparam);
+        //dump($jsparam);
         return $jsparam;
     }
 
@@ -65,6 +68,19 @@ javascript" src="{{script}}" />{% endfor %}';
 
     public function getName() {
         return 'tmsolution_form_type_extension';
+    }
+    
+    public function renderBlock($template,$block,$parameters=[]) {
+     
+         
+         $result=$this->globalEnvironment->loadTemplate($template)->renderBlock($block,$parameters);
+         
+        return $result;
+    }
+    
+     public function renderMultifile() {
+     
+         return $this->renderBlock("TMSolutionFormTypeBundle:Form:multifile_upload.html.twig",'multiFileupload');
     }
 
 }
