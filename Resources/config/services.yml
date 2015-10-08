@@ -26,6 +26,16 @@ services:
         tags:
             - { name: form.type, alias: fileupload}
             
+  tm_solution_form_type.duallistbox:
+        class: TMSolution\FormTypeBundle\Form\DualListBoxType
+        tags:
+            - { name: form.type, alias: duallistbox}
+            
+  tm_solution_form_type.editor:
+        class: TMSolution\FormTypeBundle\Form\EditorType
+        tags:
+            - { name: form.type, alias: editor}
+            
   tm_solution_form_type.twig.form_type_extension:
     class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
     tags:

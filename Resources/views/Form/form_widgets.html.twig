@@ -63,3 +63,46 @@
 {%- endblock timer_script -%}
 
 
+
+{%- block duallistbox_widget -%}
+<div class="input-group {{id}}">
+    {{ block('form_widget') }} 
+
+    {% if(lazyjs) %} {{ jsblocklater(block('duallistbox_script')) }}{% endif%}
+</div>
+{%- endblock duallistbox_widget -%}
+
+{%- block duallistbox_script -%}
+<script>
+    $(function () {
+        $('.{{full_name}}').DualListBox({json: false});
+    });
+</script>
+{%- endblock duallistbox_script -%}
+
+
+
+{%- block editor_widget -%}
+<div class="input-group {{id}}">
+    {{ block('form_widget') }} 
+    <div id="{{full_name|replace("[","_")|replace("]","_")}}summernote" style="display:inline">{{value}}</div>
+    {% if(lazyjs) %} {{ jsblocklater(block('editor_script')) }}{% endif%}
+</div>
+{%- endblock editor_widget -%}
+
+{%- block editor_script -%}
+<script>
+    $(function () {
+         $('#{{full_name}}_summernote').summernote();
+         $('#{{full_name}}_summernote').summernote({
+      onKeyup: function(e) {
+        $("#{{full_name}}_summernote").val($("#{{full_name}}").code());
+      },
+      height: 300,
+    });
+         
+         
+    });
+</script>
+{%- endblock editor_script -%}
+
