@@ -85,8 +85,7 @@
 {%- block editor_widget -%}
 <div class="input-group {{id}}">
     {{ block('form_widget') }} 
-    {#<div id="{{full_name|replace("[","_")|replace("]","_")}}summernote" style="display:inline">{{val</div>#}
-<div id="summernote">{{value}}</div>
+    <div id="{{full_name|replace("[","_")|replace("]","_")}}summernote" style="display:inline">{{value}}</div>
     {% if(lazyjs) %} {{ jsblocklater(block('editor_script')) }}{% endif%}
 </div>
 {%- endblock editor_widget -%}
@@ -94,16 +93,28 @@
 {%- block editor_script -%}
 <script>
     $(function () {
-         $('#summernote').summernote();
-         $('#summernote').summernote({
-      onKeyup: function(e) {
-        $("#lawsContent").val($("#summernote").code());
-      },
-      height: 300,
-    });
-         
-         
-    });
+        var summernote = '#{{full_name|replace("[","_")|replace("]","_")}}summernote';
+        var fullname = '#{{full_name|replace("[","_")|replace("]"," ")}}';
+        
+        
+         $(summernote).summernote({height:300});
+          $(fullname).keyup(function() {
+          $(".note-editable").text($(this).val());
+     
+      });
+
+
+//dziala!!!!!!!!!!! przyklad na samego name i wyrysowuje do diva
+              $(fullname).keyup(function () {
+                  $(summernote).text($(this).val());
+
+              });
+
+          });
 </script>
+
+{# set do ustawienia twiga #}
+{# {% set foo = 'bar' %} #}
+{# {% set full_name = {{full_name|replace("[","_")|replace("]","_")}} %} #}
 {%- endblock editor_script -%}
 
