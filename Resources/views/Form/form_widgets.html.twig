@@ -109,6 +109,11 @@
             $(fullname).html($(this).code());
 
         });#}
+        
+//works! - wpisuje z noda do inputa
+   $(".note-codable").keyup(function () {
+         $(summernote).val($(".note-codable").code());
+     });
 
 
 //dziala!!!!!!!!!!!! przyklad na inputa i wpisuje do summernote
