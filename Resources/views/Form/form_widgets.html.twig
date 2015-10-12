@@ -103,12 +103,12 @@
         var fullname = '#{{full_name|replace("[","_")|replace("]"," ")}}';
 
         $(summernote).summernote({height: 300, width: 900});
-
-//it should be worked!
-       {# $(summernote).keyup(function () {
-            $(fullname).html($(this).code());
-
-        });#}
+        
+ 
+ //works! - wpisuje z noda do inputa
+   $(".note-editable").keyup(function () {
+         $(fullname).val($(".note-editable").code());
+     });
 
 
 //dziala!!!!!!!!!!!! przyklad na inputa i wpisuje do summernote
