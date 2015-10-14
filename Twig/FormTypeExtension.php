@@ -50,10 +50,11 @@ class FormTypeExtension extends \Twig_Extension {
     }
 
     public function jsnow() {
-        $template = '{% for script in scripts %}<script type="text/
-javascript" src="{{script}}" />{% endfor %}';
+        $template = '{% for script in scripts %} <script  src="{{script}}" ></script>{% endfor %}';
         $scripts = array_unique($this->javascripts);
-        return $this->environment->render($template, ['scripts' => $this->javascripts]);
+
+        $html = $this->environment->render($template, ['scripts' => $scripts]);
+        return $html;
     }
 
     public function csslater($src) {
@@ -61,9 +62,11 @@ javascript" src="{{script}}" />{% endfor %}';
     }
 
     public function cssnow() {
-        $template = '{% for link in links %}<link rel="stylesheet" href="{{link}}" />{% endfor %}';
+        $template = '{% for link in links %} <link rel="stylesheet" href="{{link}}" /> {% endfor %}';
         $links = array_unique($this->csslinks);
-        return $this->environment->render($template, ['links' => $this->csslinks]);
+        dump($links);
+        $html = $this->environment->render($template, ['links' => $links]);
+        return $html;
     }
 
     public function getName() {

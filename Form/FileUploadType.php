@@ -22,22 +22,30 @@ class FileUploadType extends AbstractType {
         return 'fileupload';
     }
 
-     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-       
+public function setDefaultOptions(OptionsResolverInterface $resolver) {
+        $resolver->setDefaults(array(
+            'lazyjs' => true
+        ));
     }
 
     /**
      * {@inheritDoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
-   
+        $view->vars['lazyjs'] = $options['lazyjs'];
     }
 
     /**
      * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-       
+        $builder
+                ->setAttribute('lazyjs', $options['lazyjs'])
+              
+
+
+        ;
+    
     }
 
     
