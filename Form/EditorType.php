@@ -25,7 +25,7 @@ class EditorType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
-            'language' => 'en-EN'
+            'language' => ''
         ));
     }
 
@@ -34,7 +34,7 @@ class EditorType extends AbstractType {
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
-        $view->vars['language'] = $options['language'];
+        $view->vars['language'] = $options['language'];        
     }
 
     /**
@@ -42,11 +42,8 @@ class EditorType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->setAttribute('lazyjs', $options['lazyjs'])
-                ->setAttribute('language', $options['language'])
-
-
-        ;
+            ->setAttribute('lazyjs', $options['lazyjs'])
+            ->setAttribute('language', $options['language']);
     }
 
 }
