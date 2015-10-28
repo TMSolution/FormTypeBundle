@@ -106,7 +106,7 @@
 
 
 {%- block editor_widget -%}
-    <div class="input-group {{id}}">
+    <div class="input-group {{id}}" id="editor {{id}}">
     {{ block('form_widget') }} 
     <div id="{{full_name|replace("[","_")|replace("]","_")}}summernote" style="display:inline" class="font">{{value}}</div>
     {% if(lazyjs) %}

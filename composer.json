@@ -1,0 +1,29 @@
+{
+    "name": "tmsolution/formtype-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle for formtype,",
+    "keywords": ["formtype", "bundle"],
+    "homepage": "https://github.com/TMSolution/FormTypeBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mariusz Piela",
+            "email": "mariusz.piela@tmsolution.pl"
+        },
+        {
+            "name": "Lukasz Sobieraj",
+            "email": "lukasz.sobieraj@tmsolution.pl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.*"
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\FormTypeBundle\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
