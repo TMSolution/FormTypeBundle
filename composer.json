@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Core\\FormTypeBundle\\": ""
+            "TMSolution\\FormTypeBundle\\": ""
         }
     },
     "minimum-stability": "dev"
