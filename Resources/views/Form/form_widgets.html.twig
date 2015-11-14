@@ -3,44 +3,43 @@
 {%- block checkbox_switch_widget -%}
 {% set parent_label_class = parent_label_class|default('') -%}
 {{ block('form_label') }} 
-    <label class="switch">
-        <input autocomplete="false" type="checkbox" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
-        <span class="switch-label" data-off="{{off|trans}}" data-on="{{on|trans}}"></span>
-        <span class="switch-handle"></span>
-    </label>
+<label class="switch">
+    <input autocomplete="false" type="checkbox" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+    <span class="switch-label" data-off="{{off|trans}}" data-on="{{on|trans}}"></span>
+    <span class="switch-handle"></span>
+</label>
 {{ csslater( asset('assets/vendor/tmsolution-checkbox-switch/dist/css/checkbox-switch.css')) }}
 {%- endblock checkbox_switch_widget -%}
 
 
 
 {%- block color_widget -%}
-    <div class="input-group {{id}}">
-        {{ block('form_widget') }} 
-        <span class="input-group-addon"><i></i></span>
+<div class="input-group {{id}}">
+    {{ block('form_widget') }} 
+    <span class="input-group-addon"><i></i></span>
             {% if(lazyjs) %} {{ jsblocklater(block('color_widget_script')) }}{% endif%}
-    </div>
+</div>
 {{ csslater( asset('assets/vendor/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')) }}
 {{ jslater( asset('assets/vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')) }}
 {%- endblock color_widget -%}
 
 {%- block color_widget_script -%}
-    <script>
+<script>
     $(function () {
     $('.{{id}}').colorpicker();
-    });
-    </script>
+    });</script>
     {%- endblock color_widget_script -%}
 
 
 
 {%- block datepicker_widget -%}
-    <div class="input-group date {{id}}">
+<div class="input-group date {{id}}">
     {{ block('form_widget') }} 
     <span class="input-group-addon">
         <span class="glyphicon {{icon}}"></span>
     </span>
     {% if(lazyjs) %}{{ jsblocklater(block('datepicker_script')) }}{% endif%}
-    </div>
+</div>
 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
 {{ csslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')) }}
 {{ jslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js')) }}
@@ -49,24 +48,23 @@
 {%- endblock datepicker_widget -%}
 
 {%- block datepicker_script -%}
-    <script>
+<script>
             $(function () {
             $(".{{id}}").datetimepicker();
-            });
-    </script>
+            });</script>
     {%- endblock datepicker_script -%}
 
 
 
 
 {%- block timer_widget -%}
-    <div class="input-group date {{id}}">
+<div class="input-group date {{id}}">
     {{ block('form_widget') }}
-        <span class="input-group-addon">
-            <span class="glyphicon {{icon}}"></span>
-        </span>
+    <span class="input-group-addon">
+        <span class="glyphicon {{icon}}"></span>
+    </span>
     {% if(lazyjs) %}{{ jsblocklater(block('timer_script')) }}{% endif%}
-    </div>
+</div>
 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
 {{ csslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')) }}
 {{ jslater( asset('assets/vendor/moment/moment.js')) }}
@@ -76,43 +74,41 @@
 {%- endblock timer_widget -%}
 
 {%- block timer_script -%}
-    <script>
+<script>
             $(function () {
             $(".{{id}}").datetimepicker({format: 'LT'});
-            });
-    </script>
+            });</script>
     {%- endblock timer_script -%}
 
 
 
 {%- block duallistbox_widget -%}
-    <div class="input-group {{id}}">
+<div class="input-group {{id}}">
     {{ block('form_widget') }}
     {% if(lazyjs) %} {{ jsblocklater(block('duallistbox_script')) }}{% endif%}
-    </div>
+</div>
 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
 {{ jslater( asset('assets/vendor/duallistbox/dist/dual-list-box.min.js')) }}
 {%- endblock duallistbox_widget -%}
 
 {%- block duallistbox_script -%}
-    <script>
+<script>
             $(function () {
             $('.{{full_name}}').DualListBox({json: false});
-            });
-    </script>
+            });</script>
     {%- endblock duallistbox_script -%}
 
 
 
 
 {%- block editor_widget -%}
-    <div class="input-group {{id}}" id="editor {{id}}">
+<div class="input-group {{id}}" id="editor {{id}}">
     {{ block('form_widget') }} 
     <div id="{{full_name|replace("[","_")|replace("]","_")}}summernote" style="display:inline" class="font">{{value}}</div>
     {% if(lazyjs) %}
         {{ jsblocklater(block('editor_script')) }}
     {% endif %}
-    </div>
+</div>
 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
 {{ csslater( asset('assets/vendor/font-awesome/css/font-awesome.css')) }}
 {{ csslater( asset('assets/vendor/summernote/dist/summernote.css')) }}
@@ -132,45 +128,57 @@
     {% if language is defined and language != "" %}lang: '{{ language }}',{% endif %}
     {% if attr.width  is defined and attr.width  > 0 %}width:{{ attr.width }},{% endif %}
     {% if attr.height is defined and attr.height > 0 %}height:{{ attr.height }},{% endif %}
-                                onKeydown: function (e) {
-                                if (jQuery(this).code().length > maxLength || maxLength == 0) {
-                                if ((e.keyCode !== 8 // Backspace
-                                        && e.keyCode !== 37
-                                        && e.keyCode !== 38
-                                        && e.keyCode !== 39
-                                        && e.keyCode !== 40
-                                        && e.keyCode !== 46)
-                                        || e.keyCode == 13) {
-                                document.execCommand('insertHTML', false, '');
-                                        e.preventDefault();
-                                        return false;
-                                }
-                                }
-                                source.val(summernote.code());
-                                },
-                                onPaste: function (e) {
-                                if ($(this).code().length > maxLength) {
+                        onKeydown: function (e) {
+                        if (jQuery(this).code().length > maxLength || maxLength == 0) {
+                        if ((e.keyCode !== 8 // Backspace
+                                && e.keyCode !== 37
+                                && e.keyCode !== 38
+                                && e.keyCode !== 39
+                                && e.keyCode !== 40
+                                && e.keyCode !== 46)
+                                || e.keyCode == 13) {
+                        document.execCommand('insertHTML', false, '');
                                 e.preventDefault();
-                                }
-                                }
-                        });
-                        });
-</script>
-{%- endblock editor_script -%}
+                                return false;
+                        }
+                        }
+                        source.val(summernote.code());
+                        },
+                        onPaste: function (e) {
+                        if ($(this).code().length > maxLength) {
+                        e.preventDefault();
+                        }
+                        }
+                });
+                });</script>
+    {%- endblock editor_script -%}
 
 
 
 
 
 {%- block fileupload_widget -%}
-    <div class="input-group {{id}}">
-    {{ block('form_widget') }}
-    {% if(lazyjs) %} {{ jsblocklater(block('fileupload_script')) }}{% endif%}
+
+
+<div class=" {{id}}">
+    <div class="row"> 
+        <div class="col-sm-1 m-b-10" style="min-width:110px">
+            <span class="btn btn-success fileinput-button">
+                <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
+                <span> {{'Add file...'|trans}}</span>
+                {{ block('form_widget') }}
+            </span>
+        </div>
+        <div class=" col-sm-11 files">
+
+        </div> 
     </div>
+</div>
+
+{% if(lazyjs) %} {{ jsblocklater(block('fileupload_script')) }}{% endif%}
+
 {{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
-{{ jslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload-ui.css')) }}
-{{ jslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload-noscript.css')) }}
-{{ jslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload-ui-noscript.css')) }}
+
 {{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
 {{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
 {{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
@@ -184,13 +192,252 @@
 {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-audio.js')) }}
 {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-video.js')) }}
 {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
-{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-ui.js')) }}
+{{ jslater(  asset('assets/js/jquery.fileupload-ui.js')) }}
 {%- endblock fileupload_widget -%}
 
 {%- block fileupload_script -%}
-    <script>
+
+{% raw %}
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+                        
+                <div class=" template-upload fade start">
+                    
+                    <div class='col-sm-3 col-xs-8 p-l-0'>
+                    
+                        <span class="preview"><i class="fa fa-file-text-o" style="font-size: 28px; margin-left: 5px;margin-top: 1px;"></i></span>
+                        <span class="name">{%=file.name%}</span>
+                        
+                    <span class=" size">{% endraw %}{{'Processing...'|trans}}{% raw %}</span>
+                          
+                    <strong class="error text-danger"></strong>
+                    </div>
+                    <div class='col-sm-9 col-xs-4 p-r-0' >
+                   
+                     <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                   </div>
+                </div>
+                                        {% } %}
     </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+        <td>
+        <span class="preview">
+        {% if (file.thumbnailUrl) { %}
+        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+        {% } %}
+        </span>
+        </td>
+        <td>
+        <p class="name">
+        {% if (file.url) { %}
+        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?"data-gallery":""%}>{%=file.name%}</a>
+        {% } else { %}
+        <span>{%=file.name%}</span>
+        {% } %}
+        </p>
+        {% if (file.error) { %}
+        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+        {% } %}
+        </td>
+        <td>
+        <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+        {% if (file.deleteUrl) { %}
+        <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields=\'{"withCredentials":true}\'{% } %}>
+        <i class="glyphicon glyphicon-trash"></i>
+        <span>Delete</span>
+        </button>
+        <input type="checkbox" name="delete" value="1" class="toggle">
+        {% } else { %}
+        <button class="btn btn-warning cancel">
+        <i class="glyphicon glyphicon-ban-circle"></i>
+        <span>Cancel</span>
+        </button>
+        {% } %}
+        </td>
+        </tr>
+        {% } %}
+    </script>
+{% endraw %}            
+<script>
+            $(function () {
+            "use strict";
+                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+            url: '{{form.vars.form.parent.vars.action}}',
+                    dataType: 'html',
+                    singleFileUploads: true,
+                    autoUpload: false,
+                    maxNumberOfFiles: 10,
+                    done: function (e, data) {
+                    //console.debug(data._response.result);
+
+                    if (data) {
+                    $().lazyLoader('render', data._response.result);
+                    }
+                    },
+                    fail: function (e, data) {
+                    },
+                    stop: function () {
+
+                    }
+
+
+            });
+            })
+</script>
+
+
 {%- endblock fileupload_script -%}
+
+
+{%- block fileuploadcollection_widget -%}
+
+
+<div class=" {{id}}">
+    <div class="row"> 
+        <div class="col-sm-1 m-b-10" style="min-width:110px">
+            <span class="btn btn-success fileinput-button">
+                <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
+                <span> {{'Add file...'|trans}}</span>
+                <input type='file' name="cco_callcenterbundle_entity[file]" />
+            </span>
+        </div>
+        <div class=" col-sm-11 files">
+
+        </div> 
+    </div>
+</div>
+
+{% if(lazyjs) %} {{ jsblocklater(block('fileuploadcollection_script')) }}{% endif%}
+
+{{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
+
+{{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
+{{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
+{{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
+{{ jslater( asset('assets/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-process.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-image.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-audio.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-video.js')) }}
+{{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
+{{ jslater(  asset('assets/js/jquery.fileupload-collection.js')) }}
+{%- endblock fileuploadcollection_widget -%}
+
+{%- block fileuploadcollection_script -%}
+
+{% raw %}
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+                        
+                <div class=" template-upload fade start">
+                    
+                    <div class='col-sm-3 col-xs-8 p-l-0'>
+                    
+                        <span class="preview"><i class="fa fa-file-text-o" style="font-size: 28px; margin-left: 5px;margin-top: 1px;"></i></span>
+                        <span class="name">{%=file.name%}</span>
+                        
+                    <span class=" size">{% endraw %}{{'Processing...'|trans}}{% raw %}</span>
+                          
+                    <strong class="error text-danger"></strong>
+                    </div>
+                    <div class='col-sm-9 col-xs-4 p-r-0' >
+                   
+                     <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                   </div>
+                </div>
+                                        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+        <td>
+        <span class="preview">
+        {% if (file.thumbnailUrl) { %}
+        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+        {% } %}
+        </span>
+        </td>
+        <td>
+        <p class="name">
+        {% if (file.url) { %}
+        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?"data-gallery":""%}>{%=file.name%}</a>
+        {% } else { %}
+        <span>{%=file.name%}</span>
+        {% } %}
+        </p>
+        {% if (file.error) { %}
+        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+        {% } %}
+        </td>
+        <td>
+        <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+        {% if (file.deleteUrl) { %}
+        <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields=\'{"withCredentials":true}\'{% } %}>
+        <i class="glyphicon glyphicon-trash"></i>
+        <span>Delete</span>
+        </button>
+        <input type="checkbox" name="delete" value="1" class="toggle">
+        {% } else { %}
+        <button class="btn btn-warning cancel">
+        <i class="glyphicon glyphicon-ban-circle"></i>
+        <span>Cancel</span>
+        </button>
+        {% } %}
+        </td>
+        </tr>
+        {% } %}
+    </script>
+{% endraw %}            
+
+<script>
+    
+            $(function () {
+            "use strict";
+                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                   
+                    dataType: 'html',
+                    singleFileUploads: true,
+                    autoUpload: false,
+                    maxNumberOfFiles: 10,
+                    parentName: '{{parentName}}',
+                    entityName: '{{entityName}}',
+                    createRoute:'{{createRoute}}',
+                    deleteRoute: '{{deleteRoute}}',
+                    formData: [],
+                    done: function (e, data) {
+                    //console.debug(data._response.result);
+
+                    if (data) {
+                    $().lazyLoader('render', data._response.result);
+                    }
+                    },
+                    fail: function (e, data) {
+                    },
+                    stop: function () {
+
+                    }
+
+
+            });
+            })
+</script>
+
+
+{%- endblock fileuploadcollection_script -%}
 
 
 

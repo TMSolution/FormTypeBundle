@@ -40,7 +40,7 @@ class FormTypeExtension extends \Twig_Extension {
 
     public function jsblocknow() {
         $template = '{% for jsblock in jsblocks %}{{jsblock|raw}}{% endfor %}';
-        $jsparam = $this->environment->render($template, ['jsblocks' => $this->jsblocks]);
+        $jsparam = $this->environment->render($template, ['jsblocks' => array_unique($this->jsblocks)]);
         //dump($jsparam);
         return $jsparam;
     }

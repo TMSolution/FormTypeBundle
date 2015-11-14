@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FileUploadType extends AbstractType {
 
     public function getParent() {
-        return 'text';
+        return 'file';
     }
 
     public function getName() {
