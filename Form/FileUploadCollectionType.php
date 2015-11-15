@@ -33,6 +33,7 @@ class FileUploadCollectionType extends AbstractType
             'entityName' => '',
             'deleteRoute' => '',
             'createRoute' => '',
+            'formName' => ''
         ));
     }
 
@@ -66,6 +67,12 @@ class FileUploadCollectionType extends AbstractType
         } else {
             throw new \Exception('createRoute doesn\'t exists!');
         }
+        
+        if ($options['formName']) {
+            $view->vars['formName'] = $options['formName'];
+        } else {
+            throw new \Exception('formName doesn\'t exists!');
+        }
     }
 
     /**
@@ -79,7 +86,7 @@ class FileUploadCollectionType extends AbstractType
                 ->setAttribute('entityName', $options['entityName'])
                 ->setAttribute('createRoute', $options['createRoute'])
                 ->setAttribute('deleteRoute', $options['deleteRoute'])
-
+                ->setAttribute('formName', $options['formName'])
 
         ;
     }

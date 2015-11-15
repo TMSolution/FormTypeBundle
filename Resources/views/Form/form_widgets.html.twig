@@ -162,14 +162,14 @@
 
 <div class=" {{id}}">
     <div class="row"> 
-        <div class="col-sm-1 m-b-10" style="min-width:110px">
+        <div class="col-md-12 col-sm-12 col-xs-12 m-b-10">
             <span class="btn btn-success fileinput-button">
                 <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
                 <span> {{'Add file...'|trans}}</span>
                 {{ block('form_widget') }}
             </span>
         </div>
-        <div class=" col-sm-11 files">
+        <div class="col-md-12 col-sm-12 col-xs-12 files">
 
         </div> 
     </div>
@@ -269,7 +269,7 @@
             "use strict";
                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
             url: '{{form.vars.form.parent.vars.action}}',
-                    dataType: 'html',
+                    
                     singleFileUploads: true,
                     autoUpload: false,
                     maxNumberOfFiles: 10,
@@ -300,14 +300,14 @@
 
 <div class=" {{id}}">
     <div class="row"> 
-        <div class="col-sm-1 m-b-10" style="min-width:110px">
+        <div class="col-md-12 col-sm-12 col-xs-12 m-b-10" >
             <span class="btn btn-success fileinput-button">
                 <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
                 <span> {{'Add file...'|trans}}</span>
-                <input type='file' name="cco_callcenterbundle_entity[file]" />
+                <input type='file' name="{{formName}}[{{name}}]" />
             </span>
         </div>
-        <div class=" col-sm-11 files">
+        <div class="col-md-12 col-sm-12 col-xs-12 files">
 
         </div> 
     </div>
@@ -409,27 +409,15 @@
             "use strict";
                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
                    
-                    dataType: 'html',
-                    singleFileUploads: true,
+                     singleFileUploads: true,
                     autoUpload: false,
                     maxNumberOfFiles: 10,
                     parentName: '{{parentName}}',
                     entityName: '{{entityName}}',
                     createRoute:'{{createRoute}}',
                     deleteRoute: '{{deleteRoute}}',
-                    formData: [],
-                    done: function (e, data) {
-                    //console.debug(data._response.result);
-
-                    if (data) {
-                    $().lazyLoader('render', data._response.result);
-                    }
-                    },
-                    fail: function (e, data) {
-                    },
-                    stop: function () {
-
-                    }
+                    formData: []
+                    
 
 
             });
