@@ -309,7 +309,7 @@
             </span>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 files">
-           
+
         </div> 
     </div>
 </div>
@@ -408,9 +408,14 @@
 
             $(function () {
             "use strict";
+                    $.ajax({
+                    url: 'http://localhost/CallCenterProject/web/app_dev.php/panel/campaign/container/default/list',
+                            dataType: 'json'
+                    })
+
                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
 
-                    singleFileUploads: true,
+            singleFileUploads: true,
                     autoUpload: false,
                     maxNumberOfFiles: 10,
                     parentName: '{{parentName}}',
