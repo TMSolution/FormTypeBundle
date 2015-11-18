@@ -33,7 +33,9 @@ class FileUploadCollectionType extends AbstractType
             'entityName' => '',
             'deleteRoute' => '',
             'createRoute' => '',
-            'formName' => ''
+            'listRoute' => '',
+            'formName' => '',
+            'parentId' => ''
         ));
     }
 
@@ -68,10 +70,20 @@ class FileUploadCollectionType extends AbstractType
             throw new \Exception('createRoute doesn\'t exists!');
         }
         
+        if ($options['listRoute']) {
+            $view->vars['listRoute'] = $options['listRoute'];
+        } else {
+            throw new \Exception('listRoute doesn\'t exists!');
+        }
+        
         if ($options['formName']) {
             $view->vars['formName'] = $options['formName'];
         } else {
             throw new \Exception('formName doesn\'t exists!');
+        }
+        
+        if ($options['parentId']) {
+            $view->vars['parentId'] = $options['parentId'];
         }
     }
 
@@ -80,15 +92,17 @@ class FileUploadCollectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
+         
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
                 ->setAttribute('parentName', $options['parentName'])
                 ->setAttribute('entityName', $options['entityName'])
                 ->setAttribute('createRoute', $options['createRoute'])
                 ->setAttribute('deleteRoute', $options['deleteRoute'])
+                ->setAttribute('listRoute', $options['listRoute'])
                 ->setAttribute('formName', $options['formName'])
-
-        ;
+                ->setAttribute('parentId', $options['parentId']);
     }
 
 }
