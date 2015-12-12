@@ -40,6 +40,11 @@ services:
         class: TMSolution\FormTypeBundle\Form\EditorType
         tags:
             - { name: form.type, alias: editor}
+  
+  tm_solution_form_type.linklabeledcheckbox:
+        class: TMSolution\FormTypeBundle\Form\LinkLabeledCheckboxType
+        tags:
+            - { name: form.type, alias: linklabeledcheckbox}
             
   tm_solution_form_type.twig.form_type_extension:
     class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
