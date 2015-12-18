@@ -12,21 +12,17 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FileUploadCollectionType extends AbstractType
-{
+class FileUploadCollectionType extends AbstractType {
 
-    public function getParent()
-    {
+    public function getParent() {
         return 'file';
     }
 
-    public function getName()
-    {
+    public function getName() {
         return 'fileuploadcollection';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
             'parentName' => '',
@@ -35,15 +31,17 @@ class FileUploadCollectionType extends AbstractType
             'createRoute' => '',
             'listRoute' => '',
             'formName' => '',
-            'parentId' => ''
+            'parentId' => '',
+            'filesContainer' => null,
+            'maxFileSize' => null,
+            'acceptFileTypes' => null
         ));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
+    public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
         if ($options['parentName']) {
             $view->vars['parentName'] = $options['parentName'];
@@ -56,44 +54,47 @@ class FileUploadCollectionType extends AbstractType
         } else {
             throw new \Exception('entityName doesn\'t exists!');
         }
-        
-        
+
+
         if ($options['deleteRoute']) {
             $view->vars['deleteRoute'] = $options['deleteRoute'];
         } else {
             throw new \Exception('deleteRoute doesn\'t exists!');
         }
-        
+
         if ($options['createRoute']) {
             $view->vars['createRoute'] = $options['createRoute'];
         } else {
             throw new \Exception('createRoute doesn\'t exists!');
         }
-        
+
         if ($options['listRoute']) {
             $view->vars['listRoute'] = $options['listRoute'];
         } else {
             throw new \Exception('listRoute doesn\'t exists!');
         }
-        
+
         if ($options['formName']) {
             $view->vars['formName'] = $options['formName'];
         } else {
             throw new \Exception('formName doesn\'t exists!');
         }
-        
+
         if ($options['parentId']) {
             $view->vars['parentId'] = $options['parentId'];
         }
+
+        $view->vars['filesContainer'] = $options['filesContainer'];
+        $view->vars['maxFileSize'] = $options['maxFileSize'];
+        $view->vars['acceptFileTypes'] = $options['acceptFileTypes'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        
-         
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+
+
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
                 ->setAttribute('parentName', $options['parentName'])
@@ -102,7 +103,10 @@ class FileUploadCollectionType extends AbstractType
                 ->setAttribute('deleteRoute', $options['deleteRoute'])
                 ->setAttribute('listRoute', $options['listRoute'])
                 ->setAttribute('formName', $options['formName'])
-                ->setAttribute('parentId', $options['parentId']);
+                ->setAttribute('parentId', $options['parentId'])
+                ->setAttribute('filesContainer', $options['filesContainer'])
+                ->setAttribute('maxFileSize', $options['maxFileSize'])
+                ->setAttribute('acceptFileTypes', $options['acceptFileTypes']);
     }
 
 }

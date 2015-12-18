@@ -31,6 +31,12 @@ services:
         tags:
             - { name: form.type, alias: fileuploadcollection }
             
+  tm_solution_form_type.fileuploadimage:
+        class: TMSolution\FormTypeBundle\Form\FileUploadImageType
+        tags:
+            - { name: form.type, alias: fileuploadimage }          
+            
+            
   tm_solution_form_type.duallistbox:
         class: TMSolution\FormTypeBundle\Form\DualListBoxType
         tags:

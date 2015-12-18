@@ -12,22 +12,30 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FileUploadType extends AbstractType {
+class FileUploadImageType extends AbstractType {
 
     public function getParent() {
         return 'file';
     }
 
     public function getName() {
-        return 'fileupload';
+        return 'fileuploadimage';
     }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    
+    
+    /*
+     {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                                    {%if maxFileSize %}maxFileSize: {{'{'~maxFileSize~')'}}{% else %}maxFileSize: {999000}{% endif%},
+                                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
+                                   
+*/
+    
+public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
-            'filesContainer' => null,
+            'filesContainer' =>null,
             'maxFileSize' => null,
-            'acceptFileTypes' => null
+            'acceptFileTypes' =>null
         ));
     }
 
@@ -50,10 +58,13 @@ class FileUploadType extends AbstractType {
                 ->setAttribute('filesContainer', $options['filesContainer'])
                 ->setAttribute('maxFileSize', $options['maxFileSize'])
                 ->setAttribute('acceptFileTypes', $options['acceptFileTypes'])
-
+              
 
 
         ;
+    
     }
+
+    
 
 }
