@@ -64,4 +64,8 @@ services:
     tags:
             - { name: twig.extension }
             
-     
+ 
+  tm_solution_form_type.fontawesomepicker:
+        class: TMSolution\FormTypeBundle\Form\FontAwesomePickerType
+        tags:
+            - { name: form.type, alias: fontawesomepicker}
