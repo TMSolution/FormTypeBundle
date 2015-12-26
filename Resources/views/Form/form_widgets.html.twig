@@ -15,7 +15,7 @@
 
 
 {%- block linklabeledcheckbox_widget -%}
-<div class="checkobox">
+<div class="checkbox linklabeledcheckbox">
     {% if label is not same as(false) -%}
         {% if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
@@ -322,13 +322,13 @@
                                     stop: function () {
 
                                     },
-                                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
+                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
 
 
-                            });
-                            })
+                                                });
+                                                })
                 </script>
 
 
@@ -462,15 +462,15 @@
                                     deleteRoute: '{{deleteRoute}}',
                                     listRoute: '{{listRoute}}',
                                     formData: [],
-                                     maxNumberOfFiles: 1,
-                                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
+                                    maxNumberOfFiles: 1,
+                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
 
 
 
-                            });
-                            })
+                                                });
+                                                })
                 </script>
 
 
@@ -485,7 +485,7 @@
 
                 {%- block fileuploadimage_widget -%}
 
-                
+
                 <div class="start files">
                     {{ block('form_widget') }}
                 </div>
@@ -526,7 +526,7 @@
                     <!-- The template to display files available for download -->
                     <script id="template-download" type="text/x-tmpl">
 
-                       
+
                     </script>
                 {% endraw %}            
                 <script>
@@ -537,24 +537,24 @@
                                     singleFileUploads: true,
                                     autoUpload: false,
                                     maxNumberOfFiles: 1,
-                                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
-                                    done: function (e, data) {
-                                    
-                                    if (data) {
-                                    $().lazyLoader('render', data._response.result);
-                                    }
-                                    },
-                                    fail: function (e, data) {
-                                    },
-                                    stop: function () {
+                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
+                                                        done: function (e, data) {
 
-                                    }
+                                                        if (data) {
+                                                        $().lazyLoader('render', data._response.result);
+                                                        }
+                                                        },
+                                                        fail: function (e, data) {
+                                                        },
+                                                        stop: function () {
+
+                                                        }
 
 
-                            });
-                            })
+                                                });
+                                                })
                 </script>
 
 
