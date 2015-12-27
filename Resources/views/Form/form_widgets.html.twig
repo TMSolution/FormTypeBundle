@@ -11,11 +11,8 @@
 {{ csslater( asset('assets/vendor/tmsolution-checkbox-switch/dist/css/checkbox-switch.css')) }}
 {%- endblock checkbox_switch_widget -%}
 
-
-
-
 {%- block linklabeledcheckbox_widget -%}
-<div class="checkbox linklabeledcheckbox">
+<div class="checkobox">
     {% if label is not same as(false) -%}
         {% if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
@@ -47,6 +44,27 @@
 
 
 
+
+
+
+                {%- block color_widget -%}
+                <div class="input-group colorpicker-container">
+                    <input type="text" value="" class="form-control {{id}}" name="{{ full_name }}" style="background: #fff url({{asset('assets/img/select.png')}}) no-repeat scroll right center;">
+                </div>
+                {% if(lazyjs) %} {{ jsblocklater(block('color_widget_script')) }}{% endif%}
+                {{ jslater( asset( 'assets/vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')) }}
+                {%- endblock color_widget -%}
+
+                {%- block color_widget_script -%}
+                <script>
+                $(function () {
+                    $('.{{id}}').colorpicker();
+                    $('.{{id}}').colorpicker().on('changeColor.colorpicker', function(event){
+                        $('.color-picker-target').css('background-color',event.color.toHex());
+                    });
+                });
+                </script>
+                {%- endblock color_widget_script -%}
 
 
 
@@ -308,8 +326,8 @@
                     {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
 
 
-                                                });
-                                                })
+                                });
+                                })
                 </script>
 
 
@@ -450,8 +468,8 @@
 
 
 
-                                                });
-                                                })
+                                });
+                                })
                 </script>
 
 
@@ -470,6 +488,8 @@
                 <div class="start files">
                     {{ block('form_widget') }}
                 </div>
+
+
 
                 {% if(lazyjs) %} {{ jsblocklater(block('fileuploadimage_script')) }}{% endif%}
 
@@ -509,60 +529,37 @@
 
 
                     </script>
-                {% endraw %}            
-                <script>
-                            $(function () {
-                            "use strict";
-                                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-                            url: '{{form.vars.form.parent.vars.action}}',
-                                    singleFileUploads: true,
-                                    autoUpload: false,
-                                    maxNumberOfFiles: 1,
-                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
-                                            done: function (e, data) {
+                {% endraw %} 
+                $(function () {
+                "use strict";
+                $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                url: '{{form.vars.form.parent.vars.action}}',
+                singleFileUploads: true,
+                autoUpload: false,
+                maxNumberOfFiles: 1,
+                {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
+                done: function (e, data) {
 
-                                            if (data) {
-                                            $().lazyLoader('render', data._response.result);
-                                            }
-                                            },
-                                            fail: function (e, data) {
-                                            },
-                                            stop: function () {
+                if (data) {
+                $().lazyLoader('render', data._response.result);
+                }
+                },
+                fail: function (e, data) {
+                },
+                stop: function () {
 
-                                            }
+                }
 
 
-                                    });
-                                                })
-                </script>
-
+                });
+                })
 
                 {%- endblock fileuploadimage_script -%}
 
-                
-                {%- block color_widget -%}
-                <div class="input-group colorpicker-container">
-                    <input type="text" value="" class="form-control {{id}}" name="{{ full_name }}" style="background: #fff url({{asset('assets/img/select.png')}}) no-repeat scroll right center;">
-                </div>
-                {% if(lazyjs) %} {{ jsblocklater(block('color_widget_script')) }}{% endif%}
-                {{ jslater( asset( 'assets/vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')) }}
-                {%- endblock color_widget -%}
 
-                {%- block color_widget_script -%}
-                <script>
-                $(function () {
-                    $('.{{id}}').colorpicker();
-                    $('.{{id}}').colorpicker().on('changeColor.colorpicker', function(event){
-                        $('.color-picker-target').css('background-color',event.color.toHex());
-                    });
-                });
-                </script>
-                {%- endblock color_widget_script -%}
-
-
-{%- block fontawesomepicker_widget -%}
+                {%- block fontawesomepicker_widget -%}
 
                 <div class="">
                     <input type="text"  name="{{ full_name }}" class="form-control icp iconpicker-element iconpicker-input {{id}}" style="background: #fff url({{asset('assets/img/select.png')}}) no-repeat scroll right center;">
