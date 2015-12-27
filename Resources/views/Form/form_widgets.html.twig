@@ -12,7 +12,7 @@
 {%- endblock checkbox_switch_widget -%}
 
 {%- block linklabeledcheckbox_widget -%}
-<div class="checkobox">
+<div class="checkbox linklabeledcheckbox">
     {% if label is not same as(false) -%}
         {% if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
@@ -57,13 +57,12 @@
 
                 {%- block color_widget_script -%}
                 <script>
-                $(function () {
+                    $(function () {
                     $('.{{id}}').colorpicker();
-                    $('.{{id}}').colorpicker().on('changeColor.colorpicker', function(event){
-                        $('.color-picker-target').css('background-color',event.color.toHex());
+                            $('.{{id}}').colorpicker().on('changeColor.colorpicker', function(event){
+                    $('.color-picker-target').css('background-color', event.color.toHex());
                     });
-                });
-                </script>
+                    });                </script>
                 {%- endblock color_widget_script -%}
 
 
@@ -573,12 +572,12 @@
                 <script>
                             $(function () {
                             $('.{{id}}').iconpicker({
-                                placement:'bottomRight'
+                            placement:'bottomRight'
                             });
-                            $('.{{id}}').on('iconpickerSelected', function(e) {
-                                $('.picker-target').get(0).className = 'picker-target fa-2x ' +
-                                        e.iconpickerInstance.options.iconBaseClass + ' ' +
-                                        e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
-                                });
+                                    $('.{{id}}').on('iconpickerSelected', function(e) {
+                            $('.picker-target').get(0).className = 'picker-target fa-2x ' +
+                                    e.iconpickerInstance.options.iconBaseClass + ' ' +
+                                    e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
+                            });
                             });</script>
                 {%- endblock fontawesomepicker_widget_script -%}
