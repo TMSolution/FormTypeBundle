@@ -12,7 +12,7 @@
 {%- endblock checkbox_switch_widget -%}
 
 {%- block linklabeledcheckbox_widget -%}
-<div class="checkobox">
+<div class="checkbox linklabeledcheckbox">
     {% if label is not same as(false) -%}
         {% if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
