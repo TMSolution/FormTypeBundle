@@ -48,9 +48,11 @@
 
 
                 {%- block color_widget -%}
-                <div class="input-group colorpicker-container">
+                <div class="input-group colorpicker-container" id='{{id}}-button'>
                     {{ block('form_widget') }} 
-                    <i class="cp-value color-picker-target" style="color:rgb(255,255,255);background-color: {% if value %}{{value}}{%else%}{{defaultColor}}{%endif%};"></i>
+                    <span class="input-group-addon"><i class="cp-value color-picker-target" style="color:rgb(255,255,255);background-color: {% if value %}{{value}}{%else%}{{defaultColor}}{%endif%};"></i></span>
+                    
+                    
                 </div>
                 {% if(lazyjs) %} {{ jsblocklater(block('color_widget_script')) }}{% endif%}
                 {{ jslater( asset( 'assets/vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')) }}
@@ -59,7 +61,7 @@
                 {%- block color_widget_script -%}
                 <script>
                     $(function () {
-                    $('#{{id}}').colorpicker();
+                    $('#{{id}}-button').colorpicker();
                             $('#{{id}}').colorpicker().on('changeColor.colorpicker', function(event){
                     $('.color-picker-target').css('background-color', event.color.toHex());
                     });
@@ -485,7 +487,7 @@
                 {%- block fileuploadimage_widget -%}
 
 
-                <div class="start files">
+                <div class="start files ">
                     {{ block('form_widget') }}
                 </div>
 
@@ -529,7 +531,7 @@
 
 
                     </script>
-                {% endraw %} 
+                {% endraw %} <script>
                 $(function () {
                 "use strict";
                 $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
@@ -555,7 +557,7 @@
 
                 });
                 })
-
+                </script>        
                 {%- endblock fileuploadimage_script -%}
 
 
