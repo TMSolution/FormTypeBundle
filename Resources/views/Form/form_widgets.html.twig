@@ -601,21 +601,46 @@
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
                             grid: true,
-                                    from:  {% for group_label, choice in choices %}{% if choice is selectedchoice(value) %}{{choice.value-1}}{% endif %}{% endfor %},
+                                    from:{% for group_label, choice in choices %}{% if choice is selectedchoice(value) %}{{choice.value-1}}{% endif %}{% endfor %},
                                     values: [
-                                    {% for group_label, choice in choices %}
-                                        "{{choice.label}}" {%if not loop.last %},{%endif%}
-                                    {% endfor %}
-    
+                    {% for group_label, choice in choices %}
+                                                "{{choice.label}}"{%if not loop.last %},{%endif%}{% endfor %}
 
-                        ]
-                });
-                        slider{{id}}.on("change", function () {
-                        var $this = $(this);
-                                  var index = $this.data("from")+1;
-                                  var value = $this.prop("value");
-                                  $("#{{id}}").val(index);
-                        });
-                });
-                </script>
-                {%- endblock rangeslider_widget_script -%}
+
+                                        ]
+                                });
+                                        slider{{id}}.on("change", function () {
+                                        var $this = $(this);
+                                                var index = $this.data("from") + 1;
+                                                var value = $this.prop("value");
+                                                $("#{{id}}").val(index);
+                                        });
+                                });</script>
+                        {%- endblock rangeslider_widget_script -%}
+
+
+                    {%- block buttonselect_widget -%}
+                    <div>
+                        {% for group_label, choice in choices %}
+                            <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
+
+                    {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
+                    {%- endblock buttonselect_widget -%}
+
+                    {%- block buttonselect_widget_script -%}
+                    <script>
+                                $(function () {
+                                $('.filter-btn-{{id}}').on('click', function(){
+
+                                $('#{{id}}').val($(this).val());
+                                        $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                                        $(this).removeClass('btn-default').addClass('btn-primary');
+                                        $(this).closest('form').submit();
+                                });
+                                });
+                    </script>
+                    {%- endblock buttonselect_widget_script -%}
+

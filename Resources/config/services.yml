@@ -1,76 +1,81 @@
 services:
 
-  tm_solution_form_type.chekbox_swich:
+    tm_solution_form_type.chekbox_swich:
         class: TMSolution\FormTypeBundle\Form\CheckboxSwitchType
         tags:
             - { name: form.type, alias: checkbox_switch }
             
             
-  tm_solution_form_type.color:
+    tm_solution_form_type.color:
         class: TMSolution\FormTypeBundle\Form\ColorType
         tags:
             - { name: form.type, alias: color }
             
-  tm_solution_form_type.datepicker:
+    tm_solution_form_type.datepicker:
         class: TMSolution\FormTypeBundle\Form\DatePickerType
         tags:
             - { name: form.type, alias: datepicker}
   
-  tm_solution_form_type.timer:
+    tm_solution_form_type.timer:
         class: TMSolution\FormTypeBundle\Form\TimerType
         tags:
             - { name: form.type, alias: timer}
             
-  tm_solution_form_type.fileupload:
+    tm_solution_form_type.fileupload:
         class: TMSolution\FormTypeBundle\Form\FileUploadType
         tags:
             - { name: form.type, alias: fileupload}
             
-  tm_solution_form_type.fileuploadcollection:
+    tm_solution_form_type.fileuploadcollection:
         class: TMSolution\FormTypeBundle\Form\FileUploadCollectionType
         tags:
             - { name: form.type, alias: fileuploadcollection }
             
-  tm_solution_form_type.fileuploadimage:
+    tm_solution_form_type.fileuploadimage:
         class: TMSolution\FormTypeBundle\Form\FileUploadImageType
         tags:
             - { name: form.type, alias: fileuploadimage }          
             
             
-  tm_solution_form_type.duallistbox:
+    tm_solution_form_type.duallistbox:
         class: TMSolution\FormTypeBundle\Form\DualListBoxType
         tags:
             - { name: form.type, alias: duallistbox}
             
-  tm_solution_form_type.editor:
+    tm_solution_form_type.editor:
         class: TMSolution\FormTypeBundle\Form\EditorType
         tags:
             - { name: form.type, alias: editor}
   
-  tm_solution_form_type.linklabeledcheckbox:
+    tm_solution_form_type.linklabeledcheckbox:
         class: TMSolution\FormTypeBundle\Form\LinkLabeledCheckboxType
         tags:
             - { name: form.type, alias: linklabeledcheckbox}
             
-  tm_solution_form_type.entityhidden:
+    tm_solution_form_type.entityhidden:
         class: TMSolution\FormTypeBundle\Form\EntityHiddenType
         tags:
             - { name: form.type, alias: entityhidden}          
             
             
             
-  tm_solution_form_type.twig.form_type_extension:
-    class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
-    tags:
+    tm_solution_form_type.twig.form_type_extension:
+        class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
+        tags:
             - { name: twig.extension }
             
  
-  tm_solution_form_type.fontawesomepicker:
+    tm_solution_form_type.fontawesomepicker:
         class: TMSolution\FormTypeBundle\Form\FontAwesomePickerType
         tags:
             - { name: form.type, alias: fontawesomepicker}
             
-  tm_solution_form_type.rangeslider:
+    tm_solution_form_type.rangeslider:
         class: TMSolution\FormTypeBundle\Form\RangeSliderType
         tags:
             - { name: form.type, alias: rangeslider}
+            
+    tm_solution_form_type.buttonselect:
+        class: TMSolution\FormTypeBundle\Form\ButtonSelectType
+        tags:
+            - { name: form.type, alias: buttonselect}            
