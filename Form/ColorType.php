@@ -21,10 +21,18 @@ class ColorType extends AbstractType {
     public function getName() {
         return 'color';
     }
+    
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults(array(
+            'defaultColor',
+            'lazyjs'
+        ));
+    }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'lazyjs' => true,
+            'defaultColor' => 'lightgray',
+            'lazyjs' => true
         ));
     }
 
@@ -33,6 +41,7 @@ class ColorType extends AbstractType {
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
+        $view->vars['defaultColor'] = $options['defaultColor'];
     }
 
     /**
@@ -41,6 +50,7 @@ class ColorType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
+                ->setAttribute('defaultColor', $options['defaultColor'])
 
         ;
     }

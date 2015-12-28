@@ -69,3 +69,8 @@ services:
         class: TMSolution\FormTypeBundle\Form\FontAwesomePickerType
         tags:
             - { name: form.type, alias: fontawesomepicker}
+            
+  tm_solution_form_type.rangeslider:
+        class: TMSolution\FormTypeBundle\Form\RangeSliderType
+        tags:
+            - { name: form.type, alias: rangeslider}

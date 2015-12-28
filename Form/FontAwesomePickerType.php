@@ -21,10 +21,18 @@ class FontAwesomePickerType extends AbstractType {
     public function getName() {
         return 'fontawesomepicker';
     }
+    
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults(array(
+            'defaultFont',
+            'lazyjs'
+        ));
+    }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
+            'defaultFont' => 'fa-phone'
         ));
     }
 
@@ -33,6 +41,7 @@ class FontAwesomePickerType extends AbstractType {
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
+         $view->vars['defaultFont'] = $options['defaultFont'];
     }
 
     /**
@@ -41,6 +50,7 @@ class FontAwesomePickerType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
+                ->setAttribute('defaultFont', $options['defaultFont'])
 
         ;
     }
