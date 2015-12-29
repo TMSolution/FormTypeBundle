@@ -339,7 +339,7 @@
                 {%- block fileuploadcollection_widget -%}
 
 
-                <div class=" {{id}}">
+                <div class="{{id}} {% for attrname, attrvalue in attr %}{%if attrname=='class' %} {{ attrvalue }}{%endif%}{% endfor %}">
                     <div class="row"> 
                         <div class="col-md-12 col-sm-12 col-xs-12 m-b-10" >
                             <span class="btn btn-success fileinput-button">
@@ -602,7 +602,8 @@
                 <script>
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
-                            grid: true,
+                            
+                            grid: false,
                                     from:{% for group_label, choice in choices %}{% if choice is selectedchoice(value) %}{{choice.value-1}}{% endif %}{% endfor %},
                                     values: [
                     {% for group_label, choice in choices %}
@@ -645,4 +646,31 @@
                                 });
                     </script>
                     {%- endblock buttonselect_widget_script -%}
+                    
+                    
+                    
+                    {%- block buttonchoiceselect_widget -%}
+                    <div>
+                        {% for group_label, choice in choices %}
+                            <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
+
+                    {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
+                    {%- endblock buttonchoiceselect_widget -%}
+
+                    {%- block buttonchoiceselect_widget_script -%}
+                    <script>
+                                $(function () {
+                                $('.filter-btn-{{id}}').on('click', function(){
+
+                                $('#{{id}}').val($(this).val());
+                                        $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                                        $(this).removeClass('btn-default').addClass('btn-primary');
+                                        $(this).closest('form').submit();
+                                });
+                                });
+                    </script>
+                    {%- endblock buttonchoiceselect_widget_script -%}
 
