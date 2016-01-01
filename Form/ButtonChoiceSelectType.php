@@ -17,7 +17,7 @@ class ButtonChoiceSelectType extends AbstractType
 
     public function getParent()
     {
-        return 'choice';
+        return 'filter_choice';
     }
 
     public function getName()
@@ -28,33 +28,46 @@ class ButtonChoiceSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'lazyjs'
+            'lazyjs',
+            'apply_filter'
         ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'lazyjs' => true
-        ));
-    }
+            'lazyjs' => true,
+            'apply_filter' => function ( $filterQuery, $field, $values) {
+                if (empty($values['value'])) {
+                    return null;
+                }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        $view->vars['lazyjs'] = $options['lazyjs'];
-    }
+                $paramName = sprintf('p_%s', str_replace('.', '_', $field));
+                $expression = $filterQuery->getExpr()->eq($field, ':' . $paramName);
+                $parameters = array($paramName => $values['value']); // [ name => value ]
+                return $filterQuery->createCondition($expression, $parameters);
+            }
+                ));
+            }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-                ->setAttribute('lazyjs', $options['lazyjs']);
+            /**
+             * {@inheritDoc}
+             */
+            public function buildView(FormView $view, FormInterface $form, array $options)
+            {
+                $view->vars['lazyjs'] = $options['lazyjs'];
+                $view->vars['apply_filter'] = $options['apply_filter'];
+            }
 
-    }
+            /**
+             * {@inheritDoc}
+             */
+            public function buildForm(FormBuilderInterface $builder, array $options)
+            {
+                $builder
+                        ->setAttribute('lazyjs', $options['lazyjs'])
+                        ->setAttribute('apply_filter', $options['apply_filter']);
+            }
 
-}
+        }
+        

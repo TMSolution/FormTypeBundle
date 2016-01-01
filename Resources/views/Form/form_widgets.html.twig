@@ -73,6 +73,14 @@
                         var rgbString='rgba('+rgb.r+','+rgb.g +','+rgb.b+','+rgb.a+')';
                         
                         $('.color-picker-target').css('background-color',rgbString);
+                        
+                        if ((rgb.r*0.299 + rgb.g*0.587 + rgb.b*0.114) > 186){
+                            $('.color-picker-target').removeClass('c-white').addClass('c-black');
+                        }
+                        else{
+                         $('.color-picker-target').removeClass('c-black').addClass('c-white');   
+                        }
+       
                     }); 
                     });</script>
                     {%- endblock color_widget_script -%}
@@ -583,16 +591,27 @@
 
                 {%- block fontawesomepicker_widget_script -%}
                 <script>
-                            $(function () {
+                    $(function () {
                             $('#{{id}}').iconpicker({
                             placement:'bottomRight'
                             });
-                                    $('#{{id}}').on('iconpickerSelected', function(e) {
-                            $('.picker-target').get(0).className = 'picker-target fa-2x ' +
-                                    e.iconpickerInstance.options.iconBaseClass + ' ' +
-                                    e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
+                            
+    
+                            $(document).on('iconpickerSelected','#{{id}}', function(e) {
+                                
+ 
+                                                 
+                                    $('.picker-target').removeClass (function (index, css) {
+                                        return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
+                                    })
+                                    
+                                    $('.picker-target').addClass('fa-2x '+e.iconpickerValue);
+                                    
+                                    //$('.picker-target').className = 'picker-target fa-2x ' +
+                                    //e.iconpickerInstance.options.iconBaseClass + ' ' +
+                                    //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
                             });
-                            });</script>
+                    });</script>
                     {%- endblock fontawesomepicker_widget_script -%}
 
 
@@ -645,9 +664,9 @@
                     {%- block buttonselect_widget_script -%}
                     <script>
                                 $(function () {
-                                $('.filter-btn-{{id}}').on('click', function(){
+                                $(document).on('click','.filter-btn-{{id}}', function(){
 
-                                $('#{{id}}').val($(this).val());
+                                        $('#{{id}}').val($(this).val());
                                         $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
                                         $(this).removeClass('btn-default').addClass('btn-primary');
                                         $(this).closest('form').submit();
@@ -672,7 +691,7 @@
                     {%- block buttonchoiceselect_widget_script -%}
                     <script>
                                 $(function () {
-                                $('.filter-btn-{{id}}').on('click', function(){
+                                 $(document).on('click','.filter-btn-{{id}}', function(){
 
                                 $('#{{id}}').val($(this).val());
                                         $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
