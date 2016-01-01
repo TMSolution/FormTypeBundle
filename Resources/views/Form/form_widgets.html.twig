@@ -663,7 +663,7 @@
 
                     {%- block buttonselect_widget_script -%}
                     <script>
-                                $(function () {
+                               // $(function () {
                                 $(document).on('click','.filter-btn-{{id}}', function(){
 
                                         $('#{{id}}').val($(this).val());
@@ -671,7 +671,7 @@
                                         $(this).removeClass('btn-default').addClass('btn-primary');
                                         $(this).closest('form').submit();
                                 });
-                                });
+                               // });
                     </script>
                     {%- endblock buttonselect_widget_script -%}
                     
@@ -690,15 +690,15 @@
 
                     {%- block buttonchoiceselect_widget_script -%}
                     <script>
-                                $(function () {
+                                //$(function () {
                                  $(document).on('click','.filter-btn-{{id}}', function(){
 
-                                $('#{{id}}').val($(this).val());
+                                        $('#{{id}}').val($(this).val());
                                         $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
                                         $(this).removeClass('btn-default').addClass('btn-primary');
                                         $(this).closest('form').submit();
                                 });
-                                });
+                               // });
                     </script>
                     {%- endblock buttonchoiceselect_widget_script -%}
 
