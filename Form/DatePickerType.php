@@ -25,7 +25,10 @@ class DatePickerType extends AbstractType {
      public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
-            'icon' => 'glyphicon-calendar'
+            'icon' => 'glyphicon-calendar',
+            'sideBySide' => 'false',
+            'widgetFormat'=>'YYYY-MM-DD HH:mm',
+            'locale' => false
         ));
     }
 
@@ -35,6 +38,9 @@ class DatePickerType extends AbstractType {
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
         $view->vars['icon'] = $options['icon'];
+        $view->vars['sideBySide'] = $options['sideBySide'];
+        $view->vars['locale'] = $options['locale'];
+        $view->vars['widgetFormat'] = $options['widgetFormat'];
     }
 
     /**
@@ -44,7 +50,9 @@ class DatePickerType extends AbstractType {
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
                 ->setAttribute('icon', $options['icon'])
-
+                ->setAttribute('sideBySide', $options['sideBySide'])
+                ->setAttribute('locale', $options['locale'])
+                ->setAttribute('widgetFormat', $options['widgetFormat'])
         ;
     }
 

@@ -88,6 +88,7 @@
 
 
                 {%- block datepicker_widget -%}
+                <div id="{{id}}"></div>
                 <div class="input-group date {{id}}">
                     {{ block('form_widget') }} 
                     <span class="input-group-addon">
@@ -97,15 +98,22 @@
                 </div>
                 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
                 {{ csslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')) }}
-                {{ jslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js')) }}
+                
                 {{ jslater( asset('assets/vendor/moment/moment.js')) }}
                 {{ jslater( asset('assets/vendor/moment/locale/pl.js')) }}
+                {{ jslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js')) }}
                 {%- endblock datepicker_widget -%}
 
                 {%- block datepicker_script -%}
                 <script>
                             $(function () {
-                            $(".{{id}}").datetimepicker();
+                                                      
+                             $(".{{id}}").datetimepicker({
+                                sideBySide: {{sideBySide}},
+                                locale: moment.locale('{{locale}}'),
+                                format: '{{widgetFormat}}',
+                            });
+                            
                             });</script>
                     {%- endblock datepicker_script -%}
 
