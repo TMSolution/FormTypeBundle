@@ -12,24 +12,20 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DatePickerType extends AbstractType {
+class DualListType extends AbstractType {
 
     public function getParent() {
-        return 'date';
+        return 'entity';
     }
 
     public function getName() {
-        return 'datepicker';
+        return 'duallist';
     }
 
-     public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'lazyjs' => true,
-            'icon' => 'glyphicon-calendar',
-            'sideBySide' => 'false',
-            'widgetFormat'=>'YYYY-MM-DD HH:mm',
-            'locale' => false,
-            'minDateNow' => false
+           
         ));
     }
 
@@ -38,11 +34,7 @@ class DatePickerType extends AbstractType {
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['lazyjs'] = $options['lazyjs'];
-        $view->vars['icon'] = $options['icon'];
-        $view->vars['sideBySide'] = $options['sideBySide'];
-        $view->vars['locale'] = $options['locale'];
-        $view->vars['widgetFormat'] = $options['widgetFormat'];
-        $view->vars['minDateNow'] = $options['minDateNow'];
+      
     }
 
     /**
@@ -51,11 +43,8 @@ class DatePickerType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
-                ->setAttribute('icon', $options['icon'])
-                ->setAttribute('sideBySide', $options['sideBySide'])
-                ->setAttribute('locale', $options['locale'])
-                ->setAttribute('widgetFormat', $options['widgetFormat'])
-                ->setAttribute('minDateNow', $options['minDateNow'])
+              
+
         ;
     }
 

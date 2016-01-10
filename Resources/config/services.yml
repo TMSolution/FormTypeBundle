@@ -85,6 +85,9 @@ services:
     tm_solution_form_type.buttonchoiceselect:
         class: TMSolution\FormTypeBundle\Form\ButtonChoiceSelectType
         tags:
-            - { name: form.type, alias: buttonchoiceselect}
+            - { name: form.type, alias: buttonchoiceselect} 
             
-    
+    tm_solution_form_type.duallist:
+        class: TMSolution\FormTypeBundle\Form\DualListType
+        tags:
+            - { name: form.type, alias: duallist} 

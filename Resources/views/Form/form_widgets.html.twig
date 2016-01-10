@@ -51,38 +51,33 @@
                 <div class="input-group colorpicker-container" id='{{id}}-button'>
                     {{ block('form_widget') }} 
                     <span class="input-group-addon colorpicker-element-addon"><i class="cp-value " style="color:rgb(255,255,255);background-color: {% if value %}{{value}}{%else%}{{defaultColor}}{%endif%};"></i></span>
-                    
-                    
+
+
                 </div>
                 {% if(lazyjs) %} {{ jsblocklater(block('color_widget_script')) }}{% endif%}
                 {{ jslater( asset( 'assets/vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')) }}
                 {%- endblock color_widget -%}
 
                 {%- block color_widget_script -%}
-                
-                
-                
+
+
+                <script>
                     $(function () {
                     $('#{{id}}-button').colorpicker({ format: 'rgba'});
-                     
-                
-                 
-                $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
-                                
-                        var rgb=event.color.toRGB();
-                        var rgbString='rgba('+rgb.r+','+rgb.g +','+rgb.b+','+rgb.a+')';
-                        
-                        $('.color-picker-target').css('background-color',rgbString);
-                        
-                        if ((rgb.r*0.299 + rgb.g*0.587 + rgb.b*0.114) > 186){
-                            $('.color-picker-target').removeClass('c-white').addClass('c-black');
-                        }
-                        else{
-                         $('.color-picker-target').removeClass('c-black').addClass('c-white');   
-                        }
-       
-                    }); 
+                            $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
+
+                    var rgb = event.color.toRGB();
+                            var rgbString = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
+                            $('.color-picker-target').css('background-color', rgbString);
+                            if ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186){
+                    $('.color-picker-target').removeClass('c-white').addClass('c-black');
+                    }
+                    else{
+                    $('.color-picker-target').removeClass('c-black').addClass('c-white');
+                    }
+
                     });
+                    });</script>
                     {%- endblock color_widget_script -%}
 
 
@@ -98,7 +93,7 @@
                 </div>
                 {{ csslater( asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css')) }}
                 {{ csslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')) }}
-                
+
                 {{ jslater( asset('assets/vendor/moment/moment.js')) }}
                 {{ jslater( asset('assets/vendor/moment/locale/pl.js')) }}
                 {{ jslater( asset('assets/vendor/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js')) }}
@@ -107,14 +102,16 @@
                 {%- block datepicker_script -%}
                 
                             $(function () {
-                                                      
-                             $(".{{id}}").datetimepicker({
-                                sideBySide: {{sideBySide}},
-                                locale: moment.locale('{{locale}}'),
-                                format: '{{widgetFormat}}',
-                            });
-                            
-                            });
+
+                            $(".{{id}}").datetimepicker({
+                            sideBySide:{{sideBySide}},
+                                    locale: moment.locale('{{locale}}'),
+                                    format: '{{widgetFormat}}'
+                    {% if minDateNow %}
+                                        , minDate: moment()
+                    {% endif %}        
+                                });
+                                });</script>
                     {%- endblock datepicker_script -%}
 
 
@@ -228,7 +225,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 m-b-10">
                             <span class="btn btn-success fileinput-button">
                                 <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
-                                <span> {{'Add file...'|trans}}</span>
+                                <span> {{label|trans}}</span>
                                 {{ block('form_widget') }}
                             </span>
                         </div>
@@ -369,7 +366,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 m-b-10" >
                             <span class="btn btn-success fileinput-button">
                                 <i class="zmdi zmdi-plus zmdi-hc-fw"></i>
-                                <span> {{'Add file...'|trans}}</span>
+                                <span> {{label|trans}}</span>
                                 <input type='file' name="{{formName}}[{{name}}]" />
                             </span>
                         </div>
@@ -406,17 +403,16 @@
 
                         <div class=" template-upload fade start">
 
-                        <div class='col-sm-3 col-xs-8 p-l-0'>
+                        <div class='col-sm-2 p-l-0'>
 
                         <span class="preview"><i class="fa fa-file-text-o" style="font-size: 28px; margin-left: 5px;margin-top: 1px;"></i></span>
                         <span class="name">{%=file.name%}</span>
-
-                        <span class=" size">{% endraw %}{{'Processing...'|trans}}{% raw %}</span>
-
                         <strong class="error text-danger"></strong>
                         </div>
-                        <div class='col-sm-9 col-xs-4 p-r-0' >
-
+                        <div class='col-sm-1' >
+                        <span class=" size">{% endraw %}{{'Processing...'|trans}}{% raw %}</span>
+                        </div>
+                        <div class='col-sm-9' >
                         <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                         </div>
                         </div>
@@ -472,14 +468,9 @@
 
                             $(function () {
                             "use strict";
-                                    $.ajax({
-                                    url: 'http://localhost/CallCenterProject/web/app_dev.php/panel/campaign/container/default/list',
-                                            dataType: 'json'
-                                    })
-
                                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-
-                            singleFileUploads: true,
+                            url: '{{form.vars.form.parent.vars.action}}',
+                                    singleFileUploads: true,
                                     autoUpload: false,
                                     maxNumberOfFiles: 10,
                                     parentName: '{{parentName}}',
@@ -556,71 +547,70 @@
 
 
                     </script>
-                {% endraw %} 
-                $(function () {
-                "use strict";
-                $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-                url: '{{form.vars.form.parent.vars.action}}',
-                singleFileUploads: true,
-                autoUpload: false,
-                maxNumberOfFiles: 1,
-                {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
-                done: function (e, data) {
+                {% endraw %} <script>
+                            $(function () {
+                            "use strict";
+                                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                            url: '{{form.vars.form.parent.vars.action}}',
+                                    singleFileUploads: true,
+                                    autoUpload: false,
+                                    maxNumberOfFiles: 1,
+                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
+                                        done: function (e, data) {
 
-                if (data) {
-                $().lazyLoader('render', data._response.result);
-                }
-                },
-                fail: function (e, data) {
-                },
-                stop: function () {
+                                        if (data) {
+                                        $().lazyLoader('render', data._response.result);
+                                        }
+                                        },
+                                        fail: function (e, data) {
+                                        },
+                                        stop: function () {
 
-                }
+                                        }
 
 
-                });
-                })
-                
+                                });
+                                })
+                </script>        
                 {%- endblock fileuploadimage_script -%}
 
 
                 {%- block fontawesomepicker_widget -%}
 
-                <div class="">
-                    <input id="{{id}}" type="text"  name="{{ full_name }}" class="form-control icp iconpicker-element iconpicker-input" value="{{value}}">
-                    <i class="fp-value picker-target fa fa-2x {%if value %}{{ value }}{% else %}{{ defaultFont }}{% endif %}"></i>
+
+
+                <div class="input-group iconpicker-container di-block">
+                    {{ block('form_widget') }} 
+                    <span class="input-group-addon  di-block"><i class="fp-value picker-target fa {%if value %}{{ value }}{% else %}{{ defaultFont }}{% endif %}"></i></span>
                 </div>
+
 
                 {% if(lazyjs) %} {{ jsblocklater(block('fontawesomepicker_widget_script')) }}{% endif %}
                 {{ jslater( asset('assets/vendor/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js')) }}
                 {%- endblock fontawesomepicker_widget -%}
 
                 {%- block fontawesomepicker_widget_script -%}
-                
-                    $(function () {
+                <script>
+
                             $('#{{id}}').iconpicker({
-                            placement:'bottomRight'
-                            });
-                            
-    
-                            $(document).on('iconpickerSelected','#{{id}}', function(e) {
-                                
- 
-                                                 
-                                    $('.picker-target').removeClass (function (index, css) {
-                                        return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
-                                    })
-                                    
-                                    $('.picker-target').addClass('fa-2x '+e.iconpickerValue);
-                                    
-                                    //$('.picker-target').className = 'picker-target fa-2x ' +
-                                    //e.iconpickerInstance.options.iconBaseClass + ' ' +
-                                    //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
-                            });
+                    //placement:'bottomRight'
                     });
-                    {%- endblock fontawesomepicker_widget_script -%}
+                            $(document).on('iconpickerSelected', '#{{id}}', function(e) {
+
+
+
+                    $('.picker-target').removeClass (function (index, css) {
+                    return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
+                    })
+
+                            $('.picker-target').addClass('fa-2x ' + e.iconpickerValue);
+                            //$('.picker-target').className = 'picker-target fa-2x ' +
+                            //e.iconpickerInstance.options.iconBaseClass + ' ' +
+                            //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
+                    });                </script>
+                {%- endblock fontawesomepicker_widget_script -%}
 
 
 
@@ -638,14 +628,12 @@
                 
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
-                            
+
                             grid: false,
                                     from:{% for group_label, choice in choices %}{% if choice is selectedchoice(value) %}{{choice.value-1}}{% endif %}{% endfor %},
                                     values: [
                     {% for group_label, choice in choices %}
                                                 "{{choice.label}}"{%if not loop.last %},{%endif%}{% endfor %}
-
-
                                         ]
                                 });
                                         slider{{id}}.on("change", function () {
@@ -670,21 +658,21 @@
                     {%- endblock buttonselect_widget -%}
 
                     {%- block buttonselect_widget_script -%}
-                   
-                               // $(function () {
-                                $(document).on('click','.filter-btn-{{id}}', function(){
+                    <script>
+                                // $(function () {
+                                $(document).on('click', '.filter-btn-{{id}}', function(){
 
-                                        $('#{{id}}').val($(this).val());
-                                        $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
-                                        $(this).removeClass('btn-default').addClass('btn-primary');
-                                        $(this).closest('form').submit();
-                                });
-                               // });
-                    
+                        $('#{{id}}').val($(this).val());
+                                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                                $(this).removeClass('btn-default').addClass('btn-primary');
+                                $(this).closest('form').submit();
+                        });
+                                // });
+                    </script>
                     {%- endblock buttonselect_widget_script -%}
-                    
-                    
-                    
+
+
+
                     {%- block buttonchoiceselect_widget -%}
                     <div>
                         {% for group_label, choice in choices %}
@@ -699,14 +687,200 @@
                     {%- block buttonchoiceselect_widget_script -%}
                     
                                 //$(function () {
-                                 $(document).on('click','.filter-btn-{{id}}', function(){
+                                $(document).on('click', '.filter-btn-{{id}}', function(){
 
-                                        $('#{{id}}').val($(this).val());
-                                        $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
-                                        $(this).removeClass('btn-default').addClass('btn-primary');
-                                        $(this).closest('form').submit();
-                                });
-                               // });
-                    
+                        $('#{{id}}').val($(this).val());
+                                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                                $(this).removeClass('btn-default').addClass('btn-primary');
+                                $(this).closest('form').submit();
+                        });
+                                // });
+                    </script>
                     {%- endblock buttonchoiceselect_widget_script -%}
+
+
+
+
+
+                    {%- block duallist_widget -%}
+
+                    {{ block('choice_widget') }} 
+                    {% set notSelectedList=[] %}
+                    {% set selectedList=[] %}
+
+                    {% for group_label, choice in choices %}
+                        {% if choice is selectedchoice(value)%} 
+
+                            {% set selectedList = selectedList|merge(['<tr class="duallist-record selected" data-choiceid="'~choice.value~'">
+                                <td class="user-horizontalist-img-container">
+                                    <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
+                                </td>
+                                <td>
+                                    <div class="d-block">
+                                        <span class="f-400 f-15 c-black">'~choice.label|trans~'</small> 
+                                    </div>
+
+                                </td>
+                                <td style="width:30px">
+                                    <ul style="width:30px" class="actions f-18 t-a-r di-block ">
+                                        <li class="actions di-block">
+                                            <a class="cr-pointer cancel-netmeetinginvitation-btn">
+                                                <i class="zmdi zmdi-close"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>']) %}
+
+
+
+                        {%else%} 
+                            {% set notSelectedList = notSelectedList|merge(['<tr class="duallist-record not-selected" data-choiceid="'~choice.value~'">
+                                <td class="user-horizontalist-img-container">
+                                    <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
+                                </td>
+                                <td>
+                                    <div class="d-block">
+                                        <span class="f-400 f-15 c-black">'~choice.label|trans~'</small> 
+                                    </div>
+
+                                </td>
+                                
+                            </tr>']) %}
+
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="duallist m-b-30">   
+
+
+
+                        <div class="card-body">
+                            <div class="row  vertical-align">
+                                <div class="col-md-5">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">{{'system.duallist.not_selected'|trans}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="duallist-not-selected-container">
+                                                {{ notSelectedList|join|raw }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 vertical-col" style="text-align:center">
+                                    <button class="btn btn-primary duallist-add-btn">
+                                        <i class="zmdi zmdi-arrow-right"></i>
+                                    </button>
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3">{{'system.duallist.selected'|trans}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="duallist-selected-container">
+                                                {{ selectedList|join|raw }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if(lazyjs) %} {{ jsblocklater(block('duallist_widget_script')) }}{% endif%}
+                    {%- endblock duallist_widget -%}
+
+
+
+
+
+                    {%- block duallist_widget_script -%}
+                    <script>
+                                $(document).off("click", '.duallist-not-selected-container .duallist-record');
+                                $(document).on('click', '.duallist-not-selected-container .duallist-record', function(){
+
+                        if ($(this).hasClass('active')){
+                        $(this).removeClass('active');
+                        }
+                        else{
+                        $(this).addClass('active');
+                        }
+
+                        if ($('.duallist-not-selected-container').find('.duallist-record.not-selected.active').length > 0){
+                        $('.duallist-add-btn').attr('disabled', null)
+                        }
+                        else{
+                        $('.duallist-add-btn').attr('disabled', 1)
+                        }
+
+                        });
+                                $(document).off("click", '.duallist-add-btn');
+                                $(document).on('click', '.duallist-add-btn', function(e){
+                        e.preventDefault();
+                                $('.duallist-not-selected-container').find('.duallist-record.not-selected.active').each(function(){
+
+                        $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
+                                $("#netmeeting_users option[value='" + $(this).attr('data-choiceid') + "']").prop("selected", true);
+                                $(this).remove();
+                        });
+                        });
+                                $(document).off("click", '.cancel-netmeetinginvitation-btn');
+                                $(document).on('click', '.cancel-netmeetinginvitation-btn', function(e){
+
+
+
+
+                        e.preventDefault();
+                                var el = $(this).closest('tr').clone();
+                                el.find("td:last-child").remove();
+                                el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
+                                $("#netmeeting_users option[value='" + $(this).closest('tr').attr('data-choiceid') + "']").prop("selected", false);
+                                $(this).closest('tr').remove();
+                        });
+
+
+
+
+
+
+                    </script>
+                    {%- endblock duallist_widget_script -%}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+  
+                    
+                {%- block tagsinput_widget -%}
+
+                <div class="input-group bootstrap-tagsinput form-control">
+                    <input type="text" class="form-control" name="{{full_name}}" id="{{id}}" style="visibility:hidden;" value="{{value}}" >
+                </div>
+
+                {% if(lazyjs) %} {{ jsblocklater(block('tagsinput_widget_script')) }}{% endif %}
+                {{ jslater( asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')) }}
+                {%- endblock tagsinput_widget -%}
+
+                {%- block tagsinput_widget_script -%}
+                <script>
+                        $('#{{id}}').tagsinput();                
+                </script>
+                {%- endblock tagsinput_widget_script -%}
 
