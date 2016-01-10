@@ -2,7 +2,7 @@
 
 /**
  * Description of FormTypeExtension
- *
+ * 
  * @author Lukasz
  */
 
@@ -10,11 +10,16 @@ namespace TMSolution\FormTypeBundle\Twig;
 
 class FormTypeExtension extends \Twig_Extension {
 
+    protected $container;
     protected $javascripts = [];
     protected $jsblocks = [];
     protected $csslinks = [];
     protected $environment;
     protected $globalEnvironment;
+
+    public function __construct($container) {
+        $this->container = $container;
+    }
 
     public function initRuntime(\Twig_Environment $globalEnvironment) {
         $this->globalEnvironment = $globalEnvironment;
@@ -38,8 +43,31 @@ class FormTypeExtension extends \Twig_Extension {
         $this->jsblocks[] = $src;
     }
 
+    protected function isMasterRequest() {
+        if ($this->container->get('request_stack')->getParentRequest() == null) {
+            return true;
+        }
+        return false;
+    }
+
     public function jsblocknow() {
-        $template = '{% for jsblock in jsblocks %}{{jsblock|raw}}{% endfor %}';
+
+        if ($this->isMasterRequest()) {
+            $template = '<script>{% for jsblock in jsblocks %}{{jsblock|raw}}{% endfor %}</script>';
+        } else {
+
+            $uniqid=uniqid();
+
+            $template = '<script>'.
+            ' var jslblockFn'.$uniqid.' =function() { '
+            . '{% for jsblock in jsblocks %} {{jsblock|raw}} '
+            . '{% endfor %}'
+            . ' }'
+            . "\r\n"
+            . 'if (collector){collector.addFunction(jslblockFn'.$uniqid.')}</script>';
+           
+        }
+
         $jsparam = $this->environment->render($template, ['jsblocks' => array_unique($this->jsblocks)]);
         //dump($jsparam);
         return $jsparam;
@@ -64,7 +92,7 @@ class FormTypeExtension extends \Twig_Extension {
     public function cssnow() {
         $template = '{% for link in links %} <link rel="stylesheet" href="{{link}}" /> {% endfor %}';
         $links = array_unique($this->csslinks);
-        dump($links);
+
         $html = $this->environment->render($template, ['links' => $links]);
         return $html;
     }

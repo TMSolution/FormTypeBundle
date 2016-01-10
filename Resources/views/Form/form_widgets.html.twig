@@ -61,7 +61,7 @@
                 {%- block color_widget_script -%}
                 
                 
-                <script>
+                
                     $(function () {
                     $('#{{id}}-button').colorpicker({ format: 'rgba'});
                      
@@ -82,7 +82,7 @@
                         }
        
                     }); 
-                    });</script>
+                    });
                     {%- endblock color_widget_script -%}
 
 
@@ -105,7 +105,7 @@
                 {%- endblock datepicker_widget -%}
 
                 {%- block datepicker_script -%}
-                <script>
+                
                             $(function () {
                                                       
                              $(".{{id}}").datetimepicker({
@@ -114,7 +114,7 @@
                                 format: '{{widgetFormat}}',
                             });
                             
-                            });</script>
+                            });
                     {%- endblock datepicker_script -%}
 
 
@@ -137,10 +137,10 @@
                 {%- endblock timer_widget -%}
 
                 {%- block timer_script -%}
-                <script>
+                
                             $(function () {
                             $(".{{id}}").datetimepicker({format: 'LT'});
-                            });</script>
+                            });
                     {%- endblock timer_script -%}
 
 
@@ -155,10 +155,10 @@
                 {%- endblock duallistbox_widget -%}
 
                 {%- block duallistbox_script -%}
-                <script>
+              
                             $(function () {
                             $('.{{full_name}}').DualListBox({json: false});
-                            });</script>
+                            });
                     {%- endblock duallistbox_script -%}
 
 
@@ -182,7 +182,7 @@
                 {%- endblock editor_widget -%}
 
                 {%- block editor_script -%}
-                <script type="text/javascript">
+              
                             jQuery(function () {
                             var source = $('#{{full_name|replace("[","_")|replace("]"," ")}}');
                                     var maxLength = parseInt(source.attr("maxlength"));
@@ -213,7 +213,7 @@
                                         }
                                         }
                                 });
-                                });</script>
+                                });
                     {%- endblock editor_script -%}
 
 
@@ -326,7 +326,7 @@
                         {% } %}
                     </script>
                 {% endraw %}            
-                <script>
+                
                             $(function () {
                             "use strict";
                                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
@@ -355,7 +355,7 @@
 
                                 });
                                 })
-                </script>
+                
 
 
                 {%- endblock fileupload_script -%}
@@ -468,7 +468,7 @@
                     </script>
                 {% endraw %}            
 
-                <script>
+              
 
                             $(function () {
                             "use strict";
@@ -497,7 +497,7 @@
 
                                 });
                                 })
-                </script>
+                
 
 
                 {%- endblock fileuploadcollection_script -%}
@@ -556,7 +556,7 @@
 
 
                     </script>
-                {% endraw %} <script>
+                {% endraw %} 
                 $(function () {
                 "use strict";
                 $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
@@ -582,7 +582,7 @@
 
                 });
                 })
-                </script>        
+                
                 {%- endblock fileuploadimage_script -%}
 
 
@@ -598,7 +598,7 @@
                 {%- endblock fontawesomepicker_widget -%}
 
                 {%- block fontawesomepicker_widget_script -%}
-                <script>
+                
                     $(function () {
                             $('#{{id}}').iconpicker({
                             placement:'bottomRight'
@@ -619,7 +619,7 @@
                                     //e.iconpickerInstance.options.iconBaseClass + ' ' +
                                     //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
                             });
-                    });</script>
+                    });
                     {%- endblock fontawesomepicker_widget_script -%}
 
 
@@ -635,7 +635,7 @@
                 {%- endblock rangeslider_widget -%}
 
                 {%- block rangeslider_widget_script -%}
-                <script>
+                
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
                             
@@ -654,7 +654,7 @@
                                                 var value = $this.prop("value");
                                                 $("#{{id}}").val(index);
                                         });
-                                });</script>
+                                });
                         {%- endblock rangeslider_widget_script -%}
 
 
@@ -670,7 +670,7 @@
                     {%- endblock buttonselect_widget -%}
 
                     {%- block buttonselect_widget_script -%}
-                    <script>
+                   
                                // $(function () {
                                 $(document).on('click','.filter-btn-{{id}}', function(){
 
@@ -680,7 +680,7 @@
                                         $(this).closest('form').submit();
                                 });
                                // });
-                    </script>
+                    
                     {%- endblock buttonselect_widget_script -%}
                     
                     
@@ -697,7 +697,7 @@
                     {%- endblock buttonchoiceselect_widget -%}
 
                     {%- block buttonchoiceselect_widget_script -%}
-                    <script>
+                    
                                 //$(function () {
                                  $(document).on('click','.filter-btn-{{id}}', function(){
 
@@ -707,6 +707,6 @@
                                         $(this).closest('form').submit();
                                 });
                                // });
-                    </script>
+                    
                     {%- endblock buttonchoiceselect_widget_script -%}
 
