@@ -106,7 +106,10 @@
                             $(".{{id}}").datetimepicker({
                             sideBySide:{{sideBySide}},
                                     locale: moment.locale('{{locale}}'),
-                                    format: '{{widgetFormat}}',
+                                    format: '{{widgetFormat}}'
+                                    {% if minDateNow %}
+                                    ,minDate: moment()
+                                    {% endif %}        
                             });
                             });</script>
                     {%- endblock datepicker_script -%}
@@ -712,7 +715,7 @@
                     {% for group_label, choice in choices %}
                         {% if choice is selectedchoice(value)%} 
 
-                            {% set selectedList = selectedList|merge(['<tr class="duallist-record selected" data-userid="'~choice.value~'">
+                            {% set selectedList = selectedList|merge(['<tr class="duallist-record selected" data-choiceid="'~choice.value~'">
                                 <td class="user-horizontalist-img-container">
                                     <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
                                 </td>
@@ -736,7 +739,7 @@
 
 
                         {%else%} 
-                            {% set notSelectedList = notSelectedList|merge(['<tr class="duallist-record not-selected" data-userid="'~choice.value~'">
+                            {% set notSelectedList = notSelectedList|merge(['<tr class="duallist-record not-selected" data-choiceid="'~choice.value~'">
                                 <td class="user-horizontalist-img-container">
                                     <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
                                 </td>
@@ -838,7 +841,7 @@
                                     
                                    $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
                                     
-                                    $("#netmeeting_users option[value='"+$(this).attr('data-userid')+"']").prop("selected", true);
+                                    $("#netmeeting_users option[value='"+$(this).attr('data-choiceid')+"']").prop("selected", true);
                                     
                                    $(this).remove();
                                     
@@ -857,7 +860,7 @@
                             var el=$(this).closest('tr').clone();
                             el.find("td:last-child").remove();
                             el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
-                            $("#netmeeting_users option[value='"+$(this).closest('tr').attr('data-userid')+"']").prop("selected", false);
+                            $("#netmeeting_users option[value='"+$(this).closest('tr').attr('data-choiceid')+"']").prop("selected", false);
                             $(this).closest('tr').remove();
      
                         });

@@ -28,7 +28,8 @@ class DatePickerType extends AbstractType {
             'icon' => 'glyphicon-calendar',
             'sideBySide' => 'false',
             'widgetFormat'=>'YYYY-MM-DD HH:mm',
-            'locale' => false
+            'locale' => false,
+            'minDateNow' => false
         ));
     }
 
@@ -41,6 +42,7 @@ class DatePickerType extends AbstractType {
         $view->vars['sideBySide'] = $options['sideBySide'];
         $view->vars['locale'] = $options['locale'];
         $view->vars['widgetFormat'] = $options['widgetFormat'];
+        $view->vars['minDateNow'] = $options['minDateNow'];
     }
 
     /**
@@ -53,6 +55,7 @@ class DatePickerType extends AbstractType {
                 ->setAttribute('sideBySide', $options['sideBySide'])
                 ->setAttribute('locale', $options['locale'])
                 ->setAttribute('widgetFormat', $options['widgetFormat'])
+                ->setAttribute('minDateNow', $options['minDateNow'])
         ;
     }
 
