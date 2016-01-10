@@ -61,7 +61,7 @@
                 {%- block color_widget_script -%}
 
 
-                <script>
+             
                     $(function () {
                     $('#{{id}}-button').colorpicker({ format: 'rgba'});
                             $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
@@ -77,7 +77,7 @@
                     }
 
                     });
-                    });</script>
+                    });
                     {%- endblock color_widget_script -%}
 
 
@@ -111,7 +111,7 @@
                                         , minDate: moment()
                     {% endif %}        
                                 });
-                                });</script>
+                                });
                     {%- endblock datepicker_script -%}
 
 
@@ -547,7 +547,7 @@
 
 
                     </script>
-                {% endraw %} <script>
+                {% endraw %}
                             $(function () {
                             "use strict";
                                     $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
@@ -573,7 +573,7 @@
 
                                 });
                                 })
-                </script>        
+                       
                 {%- endblock fileuploadimage_script -%}
 
 
@@ -592,7 +592,7 @@
                 {%- endblock fontawesomepicker_widget -%}
 
                 {%- block fontawesomepicker_widget_script -%}
-                <script>
+                
 
                             $('#{{id}}').iconpicker({
                     //placement:'bottomRight'
@@ -609,7 +609,7 @@
                             //$('.picker-target').className = 'picker-target fa-2x ' +
                             //e.iconpickerInstance.options.iconBaseClass + ' ' +
                             //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
-                    });                </script>
+                    });               
                 {%- endblock fontawesomepicker_widget_script -%}
 
 
@@ -658,7 +658,7 @@
                     {%- endblock buttonselect_widget -%}
 
                     {%- block buttonselect_widget_script -%}
-                    <script>
+                    
                                 // $(function () {
                                 $(document).on('click', '.filter-btn-{{id}}', function(){
 
@@ -668,7 +668,7 @@
                                 $(this).closest('form').submit();
                         });
                                 // });
-                    </script>
+                    
                     {%- endblock buttonselect_widget_script -%}
 
 
@@ -695,7 +695,7 @@
                                 $(this).closest('form').submit();
                         });
                                 // });
-                    </script>
+                   
                     {%- endblock buttonchoiceselect_widget_script -%}
 
 
@@ -807,7 +807,7 @@
 
 
                     {%- block duallist_widget_script -%}
-                    <script>
+                    
                                 $(document).off("click", '.duallist-not-selected-container .duallist-record');
                                 $(document).on('click', '.duallist-not-selected-container .duallist-record', function(){
 
@@ -855,7 +855,7 @@
 
 
 
-                    </script>
+                   
                     {%- endblock duallist_widget_script -%}
                     
                     
@@ -879,8 +879,8 @@
                 {%- endblock tagsinput_widget -%}
 
                 {%- block tagsinput_widget_script -%}
-                <script>
+                
                         $('#{{id}}').tagsinput();                
-                </script>
+                
                 {%- endblock tagsinput_widget_script -%}
 
