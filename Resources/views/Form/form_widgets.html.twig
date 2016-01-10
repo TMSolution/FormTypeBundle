@@ -63,20 +63,20 @@
 
                 <script>
                     $(function () {
-                    $('#{{id}}-button').colorpicker({ format: 'rgba'});
-                            $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
+                        $('#{{id}}-button').colorpicker({ format: 'rgba'});
+                                $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
 
-                    var rgb = event.color.toRGB();
-                            var rgbString = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
-                            $('.color-picker-target').css('background-color', rgbString);
-                            if ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186){
-                    $('.color-picker-target').removeClass('c-white').addClass('c-black');
-                    }
-                    else{
-                    $('.color-picker-target').removeClass('c-black').addClass('c-white');
-                    }
+                                var rgb = event.color.toRGB();
+                                var rgbString = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
+                                $('.color-picker-target').css('background-color', rgbString);
+                                if ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186){
+                                    $('.color-picker-target').removeClass('c-white').addClass('c-black');
+                                }
+                                else{
+                                    $('.color-picker-target').removeClass('c-black').addClass('c-white');
+                                }
 
-                    });
+                        });
                     });</script>
                     {%- endblock color_widget_script -%}
 
@@ -107,11 +107,11 @@
                             sideBySide:{{sideBySide}},
                                     locale: moment.locale('{{locale}}'),
                                     format: '{{widgetFormat}}'
-                                    {% if minDateNow %}
-                                    ,minDate: moment()
-                                    {% endif %}        
-                            });
-                            });</script>
+                    {% if minDateNow %}
+                                                        , minDate: moment()
+                    {% endif %}        
+                                                });
+                                                });</script>
                     {%- endblock datepicker_script -%}
 
 
@@ -585,10 +585,13 @@
 
                 {%- block fontawesomepicker_widget -%}
 
-                <div class="">
-                    <input id="{{id}}" type="text"  name="{{ full_name }}" class="form-control icp iconpicker-element iconpicker-input" value="{{value}}">
-                    <i class="fp-value picker-target fa fa-2x {%if value %}{{ value }}{% else %}{{ defaultFont }}{% endif %}"></i>
+                 
+
+                <div class="input-group iconpicker-container di-block">
+                     {{ block('form_widget') }} 
+                    <span class="input-group-addon"><i class="fp-value picker-target fa {%if value %}{{ value }}{% else %}{{ defaultFont }}{% endif %}"></i></span>
                 </div>
+
 
                 {% if(lazyjs) %} {{ jsblocklater(block('fontawesomepicker_widget_script')) }}{% endif %}
                 {{ jslater( asset('assets/vendor/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js')) }}
@@ -596,11 +599,11 @@
 
                 {%- block fontawesomepicker_widget_script -%}
                 <script>
-                            $(function () {
+                        
                             $('#{{id}}').iconpicker({
                             placement:'bottomRight'
                             });
-                                    $(document).on('iconpickerSelected', '#{{id}}', function(e) {
+                           $(document).on('iconpickerSelected', '#{{id}}', function(e) {
 
 
 
@@ -613,7 +616,7 @@
                                     //e.iconpickerInstance.options.iconBaseClass + ' ' +
                                     //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
                             });
-                            });</script>
+                </script>
                     {%- endblock fontawesomepicker_widget_script -%}
 
 
@@ -757,49 +760,49 @@
 
                     <div class="duallist m-b-30">   
 
-                 
 
-                            <div class="card-body">
-                                <div class="row  vertical-align">
-                                    <div class="col-md-5">
-                                        <div class="table-responsive ">
-                                            <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2">{{'system.duallist.not_selected'|trans}}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="duallist-not-selected-container">
-                                                    {{ notSelectedList|join|raw }}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 vertical-col" style="text-align:center">
-                                        <button class="btn btn-primary duallist-add-btn">
-                                            <i class="zmdi zmdi-arrow-right"></i>
-                                        </button>
 
+                        <div class="card-body">
+                            <div class="row  vertical-align">
+                                <div class="col-md-5">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">{{'system.duallist.not_selected'|trans}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="duallist-not-selected-container">
+                                                {{ notSelectedList|join|raw }}
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-md-5">
-                                        <div class="table-responsive ">
-                                            <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="3">{{'system.duallist.selected'|trans}}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="duallist-selected-container">
-                                                    {{ selectedList|join|raw }}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div class="col-md-2 vertical-col" style="text-align:center">
+                                    <button class="btn btn-primary duallist-add-btn">
+                                        <i class="zmdi zmdi-arrow-right"></i>
+                                    </button>
 
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3">{{'system.duallist.selected'|trans}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="duallist-selected-container">
+                                                {{ selectedList|join|raw }}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                             </div>
-                  
+
+                        </div>
+
                     </div>
 
 
@@ -812,63 +815,52 @@
 
                     {%- block duallist_widget_script -%}
                     <script>
-                        $(document).off("click",'.duallist-not-selected-container .duallist-record');
-                        $(document).on('click','.duallist-not-selected-container .duallist-record',function(){
-                            
-                           if($(this).hasClass('active')){
-                              $(this).removeClass('active');
-                              
-                           }
-                           else{
-                              $(this).addClass('active'); 
-                           }
-                           
-                           if($('.duallist-not-selected-container').find('.duallist-record.not-selected.active').length>0){
-                                  $('.duallist-add-btn').attr('disabled',null)
-                              }
-                              else{
-                                  $('.duallist-add-btn').attr('disabled',1)
-                              }
-                            
+                                $(document).off("click", '.duallist-not-selected-container .duallist-record');
+                                $(document).on('click', '.duallist-not-selected-container .duallist-record', function(){
+
+                        if ($(this).hasClass('active')){
+                        $(this).removeClass('active');
+                        }
+                        else{
+                        $(this).addClass('active');
+                        }
+
+                        if ($('.duallist-not-selected-container').find('.duallist-record.not-selected.active').length > 0){
+                        $('.duallist-add-btn').attr('disabled', null)
+                        }
+                        else{
+                        $('.duallist-add-btn').attr('disabled', 1)
+                        }
+
                         });
-                        
-                        
-                        $(document).off("click",'.duallist-add-btn');
-                        $(document).on('click','.duallist-add-btn',function(e){
-                                e.preventDefault();
-                                
+                                $(document).off("click", '.duallist-add-btn');
+                                $(document).on('click', '.duallist-add-btn', function(e){
+                        e.preventDefault();
                                 $('.duallist-not-selected-container').find('.duallist-record.not-selected.active').each(function(){
-                                    
-                                   $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
-                                    
-                                    $("#netmeeting_users option[value='"+$(this).attr('data-choiceid')+"']").prop("selected", true);
-                                    
-                                   $(this).remove();
-                                    
-                                });
-                            
-                            
+
+                        $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
+                                $("#netmeeting_users option[value='" + $(this).attr('data-choiceid') + "']").prop("selected", true);
+                                $(this).remove();
                         });
-                        
-                        $(document).off("click",'.cancel-netmeetinginvitation-btn');
-                        $(document).on('click','.cancel-netmeetinginvitation-btn',function(e){
-                            
-                            
-                            
-                            
-                            e.preventDefault();
-                            var el=$(this).closest('tr').clone();
-                            el.find("td:last-child").remove();
-                            el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
-                            $("#netmeeting_users option[value='"+$(this).closest('tr').attr('data-choiceid')+"']").prop("selected", false);
-                            $(this).closest('tr').remove();
-     
                         });
-                        
-                        
-                        
-                        
-                        
+                                $(document).off("click", '.cancel-netmeetinginvitation-btn');
+                                $(document).on('click', '.cancel-netmeetinginvitation-btn', function(e){
+
+
+
+
+                        e.preventDefault();
+                                var el = $(this).closest('tr').clone();
+                                el.find("td:last-child").remove();
+                                el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
+                                $("#netmeeting_users option[value='" + $(this).closest('tr').attr('data-choiceid') + "']").prop("selected", false);
+                                $(this).closest('tr').remove();
+                        });
+
+
+
+
+
 
                     </script>
                     {%- endblock duallist_widget_script -%}
