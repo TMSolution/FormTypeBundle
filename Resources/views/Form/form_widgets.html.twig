@@ -625,12 +625,18 @@
                 {%- endblock rangeslider_widget -%}
 
                 {%- block rangeslider_widget_script -%}
+                            {%set choiceFrom=0%}
+                            {% for group_label, choice in choices %}
+                                {% if choice is selectedchoice(value) %}
+                                    {%set choiceFrom=choice.value-1%}
+                                {% endif %}
+                            {% endfor %}
                 
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
 
                             grid: false,
-                                    from:{% for group_label, choice in choices %}{% if choice is selectedchoice(value) %}{{choice.value-1}}{% endif %}{% endfor %},
+                                    from: {{choiceFrom}},
                                     values: [
                     {% for group_label, choice in choices %}
                                                 "{{choice.label}}"{%if not loop.last %},{%endif%}{% endfor %}
