@@ -89,3 +89,10 @@ services:
         class: TMSolution\FormTypeBundle\Form\DualListType
         tags:
             - { name: form.type, alias: duallist} 
+            
+            
+    tm_solution_form_type.tagsinput:
+        class: TMSolution\FormTypeBundle\Form\TagsInputType
+        tags:
+            - { name: form.type, alias: tagsinput}         
+            
