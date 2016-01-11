@@ -61,6 +61,8 @@ services:
             
     tm_solution_form_type.twig.form_type_extension:
         class: TMSolution\FormTypeBundle\Twig\FormTypeExtension
+        arguments: 
+            - @service_container
         tags:
             - { name: twig.extension }
             
