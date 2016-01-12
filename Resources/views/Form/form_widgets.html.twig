@@ -634,13 +634,9 @@
                 
                             $(function () {
                             var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
-
-                            grid: false,
+                                    grid: false,
                                     from: {{choiceFrom}},
-                                    values: [
-                    {% for group_label, choice in choices %}
-                                                "{{choice.label}}"{%if not loop.last %},{%endif%}{% endfor %}
-                                        ]
+                                    values: [ {% for group_label, choice in choices %}"{{choice.label|trans}}"{%if not loop.last %},{%endif%}{% endfor %}]
                                 });
                                         slider{{id}}.on("change", function () {
                                         var $this = $(this);
@@ -877,7 +873,9 @@
                 {%- block tagsinput_widget -%}
 
                 <div class="input-group bootstrap-tagsinput form-control">
-                    <input type="text" class="form-control" name="{{full_name}}" id="{{id}}" style="visibility:hidden;" value="{{value}}" >
+                   
+                    {{ block('form_widget') }} 
+                    {#<input type="text" class="form-control" name="{{full_name}}" id="{{id}}" style="visibility:hidden;" value="{{value}}" >#}
                 </div>
 
                 {% if(lazyjs) %} {{ jsblocklater(block('tagsinput_widget_script')) }}{% endif %}
@@ -888,5 +886,5 @@
                 
                         $('#{{id}}').tagsinput();                
                 
-                {%- endblock tagsinput_widget_script -%}
+                {%- endblock tagsinput_widget_script -%} 
 
