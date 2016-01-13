@@ -61,24 +61,24 @@
                 {%- block color_widget_script -%}
 
 
-             
-                    $(function () {
-                    $('#{{id}}-button').colorpicker({ format: 'rgba'});
-                            $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
 
-                    var rgb = event.color.toRGB();
-                            var rgbString = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
-                            $('.color-picker-target').css('background-color', rgbString);
-                            if ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186){
-                    $('.color-picker-target').removeClass('c-white').addClass('c-black');
-                    }
-                    else{
-                    $('.color-picker-target').removeClass('c-black').addClass('c-white');
-                    }
+                $(function () {
+                $('#{{id}}-button').colorpicker({ format: 'rgba'});
+                $('#{{id}}-button').colorpicker().on('changeColor.colorpicker', function(event){
 
-                    });
-                    });
-                    {%- endblock color_widget_script -%}
+                var rgb = event.color.toRGB();
+                var rgbString = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
+                $('.color-picker-target').css('background-color', rgbString);
+                if ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186){
+                $('.color-picker-target').removeClass('c-white').addClass('c-black');
+                }
+                else{
+                $('.color-picker-target').removeClass('c-black').addClass('c-white');
+                }
+
+                });
+                });
+                {%- endblock color_widget_script -%}
 
 
 
@@ -100,19 +100,19 @@
                 {%- endblock datepicker_widget -%}
 
                 {%- block datepicker_script -%}
-                
-                            $(function () {
 
-                            $(".{{id}}").datetimepicker({
-                            sideBySide:{{sideBySide}},
-                                    locale: moment.locale('{{locale}}'),
-                                    format: '{{widgetFormat}}'
-                    {% if minDateNow %}
-                                        , minDate: moment()
-                    {% endif %}        
-                                });
-                                });
-                    {%- endblock datepicker_script -%}
+                $(function () {
+
+                $(".{{id}}").datetimepicker({
+                sideBySide:{{sideBySide}},
+                locale: moment.locale('{{locale}}'),
+                format: '{{widgetFormat}}'
+                {% if minDateNow %}
+                    , minDate: moment()
+                {% endif %}        
+                });
+                });
+                {%- endblock datepicker_script -%}
 
 
 
@@ -134,11 +134,11 @@
                 {%- endblock timer_widget -%}
 
                 {%- block timer_script -%}
-                
-                            $(function () {
-                            $(".{{id}}").datetimepicker({format: 'LT'});
-                            });
-                    {%- endblock timer_script -%}
+
+                $(function () {
+                $(".{{id}}").datetimepicker({format: 'LT'});
+                });
+                {%- endblock timer_script -%}
 
 
 
@@ -152,11 +152,11 @@
                 {%- endblock duallistbox_widget -%}
 
                 {%- block duallistbox_script -%}
-              
-                            $(function () {
-                            $('.{{full_name}}').DualListBox({json: false});
-                            });
-                    {%- endblock duallistbox_script -%}
+
+                $(function () {
+                $('.{{full_name}}').DualListBox({json: false});
+                });
+                {%- endblock duallistbox_script -%}
 
 
 
@@ -179,39 +179,39 @@
                 {%- endblock editor_widget -%}
 
                 {%- block editor_script -%}
-              
-                            jQuery(function () {
-                            var source = $('#{{full_name|replace("[","_")|replace("]"," ")}}');
-                                    var maxLength = parseInt(source.attr("maxlength"));
-                                    var summernote = '#{{full_name|replace("[","_")|replace("]","_")}}summernote';
-                                    var summernote = jQuery(summernote).summernote({
-                    {% if language is defined and language != "" %}lang: '{{ language }}',{% endif %}
-                    {% if attr.width  is defined and attr.width  > 0 %}width:{{ attr.width }},{% endif %}
-                    {% if attr.height is defined and attr.height > 0 %}height:{{ attr.height }},{% endif %}
-                                        onKeydown: function (e) {
-                                        if (jQuery(this).code().length > maxLength || maxLength == 0) {
-                                        if ((e.keyCode !== 8 // Backspace
-                                                && e.keyCode !== 37
-                                                && e.keyCode !== 38
-                                                && e.keyCode !== 39
-                                                && e.keyCode !== 40
-                                                && e.keyCode !== 46)
-                                                || e.keyCode == 13) {
-                                        document.execCommand('insertHTML', false, '');
-                                                e.preventDefault();
-                                                return false;
-                                        }
-                                        }
-                                        source.val(summernote.code());
-                                        },
-                                        onPaste: function (e) {
-                                        if ($(this).code().length > maxLength) {
-                                        e.preventDefault();
-                                        }
-                                        }
-                                });
-                                });
-                    {%- endblock editor_script -%}
+
+                jQuery(function () {
+                var source = $('#{{full_name|replace("[","_")|replace("]"," ")}}');
+                var maxLength = parseInt(source.attr("maxlength"));
+                var summernote = '#{{full_name|replace("[","_")|replace("]","_")}}summernote';
+                var summernote = jQuery(summernote).summernote({
+                {% if language is defined and language != "" %}lang: '{{ language }}',{% endif %}
+                {% if attr.width  is defined and attr.width  > 0 %}width:{{ attr.width }},{% endif %}
+                {% if attr.height is defined and attr.height > 0 %}height:{{ attr.height }},{% endif %}
+                onKeydown: function (e) {
+                if (jQuery(this).code().length > maxLength || maxLength == 0) {
+                if ((e.keyCode !== 8 // Backspace
+                && e.keyCode !== 37
+                && e.keyCode !== 38
+                && e.keyCode !== 39
+                && e.keyCode !== 40
+                && e.keyCode !== 46)
+                || e.keyCode == 13) {
+                document.execCommand('insertHTML', false, '');
+                e.preventDefault();
+                return false;
+                }
+                }
+                source.val(summernote.code());
+                },
+                onPaste: function (e) {
+                if ($(this).code().length > maxLength) {
+                e.preventDefault();
+                }
+                }
+                });
+                });
+                {%- endblock editor_script -%}
 
 
 
@@ -234,28 +234,6 @@
                         </div> 
                     </div>
                 </div>
-
-                {% if(lazyjs) %} {{ jsblocklater(block('fileupload_script')) }}{% endif%}
-
-                {{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
-
-                {{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-process.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-image.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-audio.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-video.js')) }}
-                {{ jslater(  asset('assets/js/jquery.fileupload-ui.js')) }}
-                {%- endblock fileupload_widget -%}
-
-                {%- block fileupload_script -%}
-
                 {% raw %}
                     <script id="template-upload" type="text/x-tmpl">
                         {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -322,37 +300,59 @@
                         </tr>
                         {% } %}
                     </script>
-                {% endraw %}            
-                
-                            $(function () {
-                            "use strict";
-                                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-                            url: '{{form.vars.form.parent.vars.action}}',
-                                    singleFileUploads: true,
-                                    autoUpload: false,
-                                    maxNumberOfFiles: 1,
-                                    //maxFileSize: 999000,
-                                    //acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                                    done: function (e, data) {
-                                    //console.debug(data._response.result);
+                {% endraw %}   
 
-                                    if (data) {
-                                    $().lazyLoader('render', data._response.result);
-                                    }
-                                    },
-                                    fail: function (e, data) {
-                                    },
-                                    stop: function () {
+                {% if(lazyjs) %} {{ jsblocklater(block('fileupload_script')) }}{% endif%}
 
-                                    },
-                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
+                {{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
+
+                {{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-process.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-image.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-audio.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-video.js')) }}
+                {{ jslater(  asset('assets/js/jquery.fileupload-ui.js')) }}
+                {%- endblock fileupload_widget -%}
+
+                {%- block fileupload_script -%}
+
+                         
+
+                $(function () {
+                "use strict";
+                $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                url: '{{form.vars.form.parent.vars.action}}',
+                singleFileUploads: true,
+                autoUpload: false,
+                maxNumberOfFiles: 1,
+                dataType: "{{dataType}}",
+                done: function (e, data) {
+               
+
+                if (data) {
+                $().lazyLoader('render', data._response.result);
+                }
+                },
+                fail: function (e, data) {
+                },
+                stop: function () {
+
+                },
+                {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
 
 
-                                });
-                                })
-                
+                });
+                })
+
 
 
                 {%- endblock fileupload_script -%}
@@ -375,29 +375,8 @@
                         </div> 
                     </div>
                 </div>
-
-                {% if(lazyjs) %} {{ jsblocklater(block('fileuploadcollection_script')) }}{% endif%}
-
-                {{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
-
-                {{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
-                {{ jslater( asset('assets/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-process.js')) }}
-                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-image.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-audio.js')) }}
-                {{ jslater( asset('assets/js/jquery.fileupload-video.js')) }}
-                {{ jslater(  asset('assets/js/jquery.fileupload-collection.js')) }}
-                {%- endblock fileuploadcollection_widget -%}
-
-                {%- block fileuploadcollection_script -%}
-
-                {% raw %}
+                            
+                 {% raw %}
                     <script id="template-upload" type="text/x-tmpl">
                         {% for (var i=0, file; file=o.files[i]; i++) { %}
 
@@ -462,33 +441,56 @@
                         </tr>
                         {% } %}
                     </script>
-                {% endraw %}            
+                {% endraw %}  
 
-              
+                {% if(lazyjs) %} {{ jsblocklater(block('fileuploadcollection_script')) }}{% endif%}
 
-                            $(function () {
-                            "use strict";
-                                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-                            url: '{{form.vars.form.parent.vars.action}}',
-                                    singleFileUploads: true,
-                                    autoUpload: false,
-                                    maxNumberOfFiles: 10,
-                                    parentName: '{{parentName}}',
-                                    entityName: '{{entityName}}',
-                                    createRoute:'{{createRoute}}',
-                                    deleteRoute: '{{deleteRoute}}',
-                                    listRoute: '{{listRoute}}',
-                                    formData: [],
-                                    maxNumberOfFiles: 1,
-                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
+                {{ csslater( asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')) }}
+
+                {{ jslater( asset('assets/vendor/blueimp-tmpl/js/tmpl.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-load-image/js/load-image.all.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js')) }}
+                {{ jslater( asset('assets/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-process.js')) }}
+                {{ jslater( asset('assets/vendor/jquery-file-upload/js/jquery.fileupload-validate.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-image.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-audio.js')) }}
+                {{ jslater( asset('assets/js/jquery.fileupload-video.js')) }}
+                {{ jslater(  asset('assets/js/jquery.fileupload-collection.js')) }}
+                {%- endblock fileuploadcollection_widget -%}
+
+                {%- block fileuploadcollection_script -%}
+
+                          
 
 
 
-                                });
-                                })
-                
+                $(function () {
+                "use strict";
+                $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                url: '{{form.vars.form.parent.vars.action}}',
+                singleFileUploads: true,
+                autoUpload: false,
+                maxNumberOfFiles: 10,
+                parentName: '{{parentName}}',
+                entityName: '{{entityName}}',
+                createRoute:'{{createRoute}}',
+                deleteRoute: '{{deleteRoute}}',
+                listRoute: '{{listRoute}}',
+                formData: [],
+                maxNumberOfFiles: 1,
+                {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%}
+
+
+
+                });
+                })
+
 
 
                 {%- endblock fileuploadcollection_script -%}
@@ -507,7 +509,25 @@
                     {{ block('form_widget') }}
                 </div>
 
+                {% raw %}
 
+                    <script id="template-upload" type="text/x-tmpl">
+                        {% for (var i=0, file; file=o.files[i]; i++) { %}
+
+                        <div class="template-upload fade start">
+
+                        <div class="preview col-md-12" style="width:500px">
+                        </div>
+
+                        <div class="error text-danger text-center f-20" ></div>
+                        </div>
+
+                        {% } %}
+                    </script>
+                    <!-- The template to display files available for download -->
+                    <script id="template-download" type="text/x-tmpl">
+                    </script>
+                {% endraw %}
 
                 {% if(lazyjs) %} {{ jsblocklater(block('fileuploadimage_script')) }}{% endif%}
 
@@ -527,53 +547,32 @@
 
                 {%- block fileuploadimage_script -%}
 
-                {% raw %}
+                $(function () {
+                "use strict";
+                $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
+                url: '{{form.vars.form.parent.vars.action}}',
+                singleFileUploads: true,
+                autoUpload: false,
+                maxNumberOfFiles: 1,
+                {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
+                {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
+                {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
+                done: function (e, data) {
 
-                    <script id="template-upload" type="text/x-tmpl">
-                        {% for (var i=0, file; file=o.files[i]; i++) { %}
+                if (data) {
+                $().lazyLoader('render', data._response.result);
+                }
+                },
+                fail: function (e, data) {
+                },
+                stop: function () {
 
-                        <div class="template-upload fade start">
-
-                        <div class="preview col-md-12" style="width:500px">
-                        </div>
-
-                        <div class="error text-danger text-center f-20" ></div>
-                        </div>
-
-                        {% } %}
-                    </script>
-                    <!-- The template to display files available for download -->
-                    <script id="template-download" type="text/x-tmpl">
-
-
-                    </script>
-                {% endraw %}
-                            $(function () {
-                            "use strict";
-                                    $("form[name='{{form.vars.form.parent.vars.name}}']").fileupload({
-                            url: '{{form.vars.form.parent.vars.action}}',
-                                    singleFileUploads: true,
-                                    autoUpload: false,
-                                    maxNumberOfFiles: 1,
-                    {%if filesContainer%}filesContainer:  $('{{filesContainer}}').first(),{% endif %}
-                    {%if maxFileSize %}maxFileSize: {{maxFileSize}}{% else %}maxFileSize: 999000{% endif%},
-                    {%if acceptFileTypes %}acceptFileTypes: /(\.|\/){{acceptFileTypes}}$/i {% else %}acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i{% endif%},
-                                        done: function (e, data) {
-
-                                        if (data) {
-                                        $().lazyLoader('render', data._response.result);
-                                        }
-                                        },
-                                        fail: function (e, data) {
-                                        },
-                                        stop: function () {
-
-                                        }
+                }
 
 
-                                });
-                                })
-                       
+                });
+                })
+
                 {%- endblock fileuploadimage_script -%}
 
 
@@ -592,24 +591,24 @@
                 {%- endblock fontawesomepicker_widget -%}
 
                 {%- block fontawesomepicker_widget_script -%}
-                
-
-                            $('#{{id}}').iconpicker({
-                    //placement:'bottomRight'
-                    });
-                            $(document).on('iconpickerSelected', '#{{id}}', function(e) {
 
 
+                $('#{{id}}').iconpicker({
+                //placement:'bottomRight'
+                });
+                $(document).on('iconpickerSelected', '#{{id}}', function(e) {
 
-                    $('.picker-target').removeClass (function (index, css) {
-                    return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
-                    })
 
-                            $('.picker-target').addClass('fa-2x ' + e.iconpickerValue);
-                            //$('.picker-target').className = 'picker-target fa-2x ' +
-                            //e.iconpickerInstance.options.iconBaseClass + ' ' +
-                            //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
-                    });               
+
+                $('.picker-target').removeClass (function (index, css) {
+                return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
+                })
+
+                $('.picker-target').addClass('fa-2x ' + e.iconpickerValue);
+                //$('.picker-target').className = 'picker-target fa-2x ' +
+                //e.iconpickerInstance.options.iconBaseClass + ' ' +
+                //e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
+                });               
                 {%- endblock fontawesomepicker_widget_script -%}
 
 
@@ -625,95 +624,95 @@
                 {%- endblock rangeslider_widget -%}
 
                 {%- block rangeslider_widget_script -%}
-                            {%set choiceFrom=0%}
-                            {% for group_label, choice in choices %}
-                                {% if choice is selectedchoice(value) %}
-                                    {%set choiceFrom=choice.value-1%}
-                                {% endif %}
-                            {% endfor %}
-                
-                            $(function () {
-                            var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
-                                    grid: false,
-                                    from: {{choiceFrom}},
-                                    values: [ {% for group_label, choice in choices %}"{{choice.label|trans}}"{%if not loop.last %},{%endif%}{% endfor %}]
-                                });
-                                        slider{{id}}.on("change", function () {
-                                        var $this = $(this);
-                                                var index = $this.data("from") + 1;
-                                                var value = $this.prop("value");
-                                                $("#{{id}}").val(index);
-                                        });
-                                });
-                        {%- endblock rangeslider_widget_script -%}
+                {%set choiceFrom=0%}
+                {% for group_label, choice in choices %}
+                    {% if choice is selectedchoice(value) %}
+                        {%set choiceFrom=choice.value-1%}
+                    {% endif %}
+                {% endfor %}
+
+                $(function () {
+                var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
+                grid: false,
+                from: {{choiceFrom}},
+                values: [ {% for group_label, choice in choices %}"{{choice.label|trans}}"{%if not loop.last %},{%endif%}{% endfor %}]
+                });
+                slider{{id}}.on("change", function () {
+                var $this = $(this);
+                var index = $this.data("from") + 1;
+                var value = $this.prop("value");
+                $("#{{id}}").val(index);
+                });
+                });
+                {%- endblock rangeslider_widget_script -%}
 
 
-                    {%- block buttonselect_widget -%}
-                    <div>
-                        {% for group_label, choice in choices %}
-                            <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
-                        {% endfor %}
-                    </div>
-                    <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
-
-                    {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
-                    {%- endblock buttonselect_widget -%}
-
-                    {%- block buttonselect_widget_script -%}
-                    
-                                // $(function () {
-                                $(document).on('click', '.filter-btn-{{id}}', function(){
-
-                        $('#{{id}}').val($(this).val());
-                                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
-                                $(this).removeClass('btn-default').addClass('btn-primary');
-                                $(this).closest('form').submit();
-                        });
-                                // });
-                    
-                    {%- endblock buttonselect_widget_script -%}
-
-
-
-                    {%- block buttonchoiceselect_widget -%}
-                    <div>
-                        {% for group_label, choice in choices %}
-                            <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
-                        {% endfor %}
-                    </div>
-                    <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
-
-                    {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
-                    {%- endblock buttonchoiceselect_widget -%}
-
-                    {%- block buttonchoiceselect_widget_script -%}
-                    
-                                //$(function () {
-                                $(document).on('click', '.filter-btn-{{id}}', function(){
-
-                        $('#{{id}}').val($(this).val());
-                                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
-                                $(this).removeClass('btn-default').addClass('btn-primary');
-                                $(this).closest('form').submit();
-                        });
-                                // });
-                   
-                    {%- endblock buttonchoiceselect_widget_script -%}
-
-
-
-
-
-                    {%- block duallist_widget -%}
-
-                    {{ block('choice_widget') }} 
-                    {% set notSelectedList=[] %}
-                    {% set selectedList=[] %}
-
+                {%- block buttonselect_widget -%}
+                <div>
                     {% for group_label, choice in choices %}
-                        {% if choice is selectedchoice(value)%} 
+                        <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
 
-                            {% set selectedList = selectedList|merge(['<tr class="duallist-record selected" data-choiceid="'~choice.value~'">
+                {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
+                {%- endblock buttonselect_widget -%}
+
+                {%- block buttonselect_widget_script -%}
+
+                // $(function () {
+                $(document).on('click', '.filter-btn-{{id}}', function(){
+
+                $('#{{id}}').val($(this).val());
+                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                $(this).removeClass('btn-default').addClass('btn-primary');
+                $(this).closest('form').submit();
+                });
+                // });
+
+                {%- endblock buttonselect_widget_script -%}
+
+
+
+                {%- block buttonchoiceselect_widget -%}
+                <div>
+                    {% for group_label, choice in choices %}
+                        <button class="btn filter-btn-{{id}}{% if choice is selectedchoice(value)%} btn-primary {%else%} btn-default {% endif %}waves-effect " type="button" value="{{choice.value}}">{{choice.label|trans}}</button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
+
+                {% if(lazyjs) %} {{ jsblocklater(block('buttonselect_widget_script')) }}{% endif%}
+                {%- endblock buttonchoiceselect_widget -%}
+
+                {%- block buttonchoiceselect_widget_script -%}
+
+                //$(function () {
+                $(document).on('click', '.filter-btn-{{id}}', function(){
+
+                $('#{{id}}').val($(this).val());
+                $(this).siblings('button').removeClass('btn-primary').addClass('btn-default');
+                $(this).removeClass('btn-default').addClass('btn-primary');
+                $(this).closest('form').submit();
+                });
+                // });
+
+                {%- endblock buttonchoiceselect_widget_script -%}
+
+
+
+
+
+                {%- block duallist_widget -%}
+
+                {{ block('choice_widget') }} 
+                {% set notSelectedList=[] %}
+                {% set selectedList=[] %}
+
+                {% for group_label, choice in choices %}
+                    {% if choice is selectedchoice(value)%} 
+
+                        {% set selectedList = selectedList|merge(['<tr class="duallist-record selected" data-choiceid="'~choice.value~'">
                                 <td class="user-horizontalist-img-container">
                                     <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
                                 </td>
@@ -736,8 +735,8 @@
 
 
 
-                        {%else%} 
-                            {% set notSelectedList = notSelectedList|merge(['<tr class="duallist-record not-selected" data-choiceid="'~choice.value~'">
+                    {%else%} 
+                        {% set notSelectedList = notSelectedList|merge(['<tr class="duallist-record not-selected" data-choiceid="'~choice.value~'">
                                 <td class="user-horizontalist-img-container">
                                     <img class="img-circle user-profile-thumbnail" alt="" src="'~userservice.getAvatarImage(choice.data)~'"> 
                                 </td>
@@ -750,130 +749,130 @@
                                 
                             </tr>']) %}
 
-                        {% endif %}
-                    {% endfor %}
+                    {% endif %}
+                {% endfor %}
 
-                    <div class="duallist m-b-30">   
+                <div class="duallist m-b-30">   
 
 
 
-                        <div class="card-body">
-                            <div class="row  vertical-align">
-                                <div class="col-md-5">
-                                    <div class="table-responsive ">
-                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="2">{{'system.duallist.not_selected'|trans}}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="duallist-not-selected-container">
-                                                {{ notSelectedList|join|raw }}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    <div class="card-body">
+                        <div class="row  vertical-align">
+                            <div class="col-md-5">
+                                <div class="table-responsive ">
+                                    <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">{{'system.duallist.not_selected'|trans}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="duallist-not-selected-container">
+                                            {{ notSelectedList|join|raw }}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-2 vertical-col" style="text-align:center">
-                                    <button class="btn btn-primary duallist-add-btn">
-                                        <i class="zmdi zmdi-arrow-right"></i>
-                                    </button>
+                            </div>
+                            <div class="col-md-2 vertical-col" style="text-align:center">
+                                <button class="btn btn-primary duallist-add-btn">
+                                    <i class="zmdi zmdi-arrow-right"></i>
+                                </button>
 
+                            </div>
+                            <div class="col-md-5">
+                                <div class="table-responsive ">
+                                    <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">{{'system.duallist.selected'|trans}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="duallist-selected-container">
+                                            {{ selectedList|join|raw }}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="table-responsive ">
-                                        <table class="table table-striped table-hover table-full-width bootgrid-table fix-table horizontalist-table">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="3">{{'system.duallist.selected'|trans}}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="duallist-selected-container">
-                                                {{ selectedList|join|raw }}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
                             </div>
 
                         </div>
 
                     </div>
 
-
-                    {% if(lazyjs) %} {{ jsblocklater(block('duallist_widget_script')) }}{% endif%}
-                    {%- endblock duallist_widget -%}
+                </div>
 
 
-
-
-
-                    {%- block duallist_widget_script -%}
-                    
-                                $(document).off("click", '.duallist-not-selected-container .duallist-record');
-                                $(document).on('click', '.duallist-not-selected-container .duallist-record', function(){
-
-                        if ($(this).hasClass('active')){
-                        $(this).removeClass('active');
-                        }
-                        else{
-                        $(this).addClass('active');
-                        }
-
-                        if ($('.duallist-not-selected-container').find('.duallist-record.not-selected.active').length > 0){
-                        $('.duallist-add-btn').attr('disabled', null)
-                        }
-                        else{
-                        $('.duallist-add-btn').attr('disabled', 1)
-                        }
-
-                        });
-                                $(document).off("click", '.duallist-add-btn');
-                                $(document).on('click', '.duallist-add-btn', function(e){
-                        e.preventDefault();
-                                $('.duallist-not-selected-container').find('.duallist-record.not-selected.active').each(function(){
-
-                        $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
-                                $("#netmeeting_users option[value='" + $(this).attr('data-choiceid') + "']").prop("selected", true);
-                                $(this).remove();
-                        });
-                        });
-                                $(document).off("click", '.cancel-netmeetinginvitation-btn');
-                                $(document).on('click', '.cancel-netmeetinginvitation-btn', function(e){
-
-
-
-
-                        e.preventDefault();
-                                var el = $(this).closest('tr').clone();
-                                el.find("td:last-child").remove();
-                                el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
-                                $("#netmeeting_users option[value='" + $(this).closest('tr').attr('data-choiceid') + "']").prop("selected", false);
-                                $(this).closest('tr').remove();
-                        });
+                {% if(lazyjs) %} {{ jsblocklater(block('duallist_widget_script')) }}{% endif%}
+                {%- endblock duallist_widget -%}
 
 
 
 
 
+                {%- block duallist_widget_script -%}
 
-                   
-                    {%- endblock duallist_widget_script -%}
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-  
-                    
+                $(document).off("click", '.duallist-not-selected-container .duallist-record');
+                $(document).on('click', '.duallist-not-selected-container .duallist-record', function(){
+
+                if ($(this).hasClass('active')){
+                $(this).removeClass('active');
+                }
+                else{
+                $(this).addClass('active');
+                }
+
+                if ($('.duallist-not-selected-container').find('.duallist-record.not-selected.active').length > 0){
+                $('.duallist-add-btn').attr('disabled', null)
+                }
+                else{
+                $('.duallist-add-btn').attr('disabled', 1)
+                }
+
+                });
+                $(document).off("click", '.duallist-add-btn');
+                $(document).on('click', '.duallist-add-btn', function(e){
+                e.preventDefault();
+                $('.duallist-not-selected-container').find('.duallist-record.not-selected.active').each(function(){
+
+                $(this).clone().removeClass('not-selected').removeClass('active').addClass('selected').append('<td><ul style="width:30px" class="actions f-18 t-a-r di-block "><li class="actions di-block"><a class="cr-pointer cancel-netmeetinginvitation-btn"><i class="zmdi zmdi-close"></i></a></li></ul></td>').appendTo('.duallist-selected-container');
+                $("#netmeeting_users option[value='" + $(this).attr('data-choiceid') + "']").prop("selected", true);
+                $(this).remove();
+                });
+                });
+                $(document).off("click", '.cancel-netmeetinginvitation-btn');
+                $(document).on('click', '.cancel-netmeetinginvitation-btn', function(e){
+
+
+
+
+                e.preventDefault();
+                var el = $(this).closest('tr').clone();
+                el.find("td:last-child").remove();
+                el.removeClass('selected').addClass('not-selected').appendTo('.duallist-not-selected-container');
+                $("#netmeeting_users option[value='" + $(this).closest('tr').attr('data-choiceid') + "']").prop("selected", false);
+                $(this).closest('tr').remove();
+                });
+
+
+
+
+
+
+
+                {%- endblock duallist_widget_script -%}
+
+
+
+
+
+
+
+
+
+
+
                 {%- block tagsinput_widget -%}
 
                 <div class="input-group bootstrap-tagsinput form-control">
-                   
+
                     {{ block('form_widget') }} 
                     {#<input type="text" class="form-control" name="{{full_name}}" id="{{id}}" style="visibility:hidden;" value="{{value}}" >#}
                 </div>
@@ -883,8 +882,8 @@
                 {%- endblock tagsinput_widget -%}
 
                 {%- block tagsinput_widget_script -%}
-                
-                        $('#{{id}}').tagsinput();                
-                
+
+                $('#{{id}}').tagsinput();                
+
                 {%- endblock tagsinput_widget_script -%} 
 

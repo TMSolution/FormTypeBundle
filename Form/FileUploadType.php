@@ -12,48 +12,55 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FileUploadType extends AbstractType {
+class FileUploadType extends AbstractType
+{
 
-    public function getParent() {
+    public function getParent()
+    {
         return 'file';
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'fileupload';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'lazyjs' => true,
             'filesContainer' => null,
             'maxFileSize' => null,
-            'acceptFileTypes' => null
+            'acceptFileTypes' => null,
+            'dataType' => 'json'
         ));
     }
+    
+    
 
     /**
      * {@inheritDoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options) {
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
         $view->vars['lazyjs'] = $options['lazyjs'];
         $view->vars['filesContainer'] = $options['filesContainer'];
         $view->vars['maxFileSize'] = $options['maxFileSize'];
         $view->vars['acceptFileTypes'] = $options['acceptFileTypes'];
+        $view->vars['dataType'] = $options['dataType'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->setAttribute('lazyjs', $options['lazyjs'])
                 ->setAttribute('filesContainer', $options['filesContainer'])
                 ->setAttribute('maxFileSize', $options['maxFileSize'])
                 ->setAttribute('acceptFileTypes', $options['acceptFileTypes'])
-
-
-
-        ;
+                ->setAttribute('dataType', $options['dataType']);
     }
 
 }
