@@ -29,10 +29,12 @@ class CheckboxSwitchType extends AbstractType {
             'off' => 'off',
         ));
         $resolver->setNormalizer('attr', function ($options, $value) {
+            
+            $value["class"] = "switch-input";
             if (array_key_exists("class", $value)) {
-                $value["class"] = " " . $value["class"];
+                $value["class"] .= " " . $value["class"];
             }
-            $value["class"] = "switch-input" . $value["class"];
+            
 
             return $value;
         });
