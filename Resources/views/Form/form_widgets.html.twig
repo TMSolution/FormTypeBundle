@@ -610,16 +610,20 @@
 
 
 
-                {%- block numericslider_widget -%}
+                {%- block valueslider_widget -%}
                 <div id="slider-{{id}}"></div>
                 <input class="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
-                    {% if(lazyjs) %} {{ jsblocklater(block('numericslider_widget_script')) }}{% endif %}
+                    {% if(lazyjs) %} {{ jsblocklater(block('valueslider_widget_script')) }}{% endif %}
                     {{ jslater( asset('assets/vendor/ion.rangeslider/js/ion.rangeSlider.min.js')) }}
-                {%- endblock numericslider_widget -%}
 
-                {%- block numericslider_widget_script -%}                
+                {%- endblock valueslider_widget -%}
+
+                {%- block valueslider_widget_script -%}                
                     $(function () {
                         var slider{{id}} = $("#slider-{{id}}").ionRangeSlider({
+                            {% if values is not empty %}
+                                'values': [{% for v in values %}"{{ v }}",{% endfor %}],
+                            {% endif %}
                             'type': '{{ type }}',
                             'min': {{ min }},
                             'max': {{ max }},    
@@ -627,14 +631,14 @@
                             'grid': {{ grid }},
                             'disable': {{ disable }}                            
                         });
-                        slider{{id}}.on("change", function () {
+{#                        slider{{id}}.on("change", function () {
                         var $this = $(this);
                         var index = $this.data("from") + 1;
                         var value = $this.prop("value");
                         $("#{{id}}").val(index);
-                        });                    
+                        });    #}                
                     });
-                {%- endblock numericslider_widget_script -%}                
+                {%- endblock valueslider_widget_script -%}                
 
 
                 {%- block rangeslider_widget -%}

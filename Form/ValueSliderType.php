@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
-class NumericSliderType extends AbstractType
+class ValueSliderType extends AbstractType
 {
 
     public function getParent()
@@ -22,7 +22,7 @@ class NumericSliderType extends AbstractType
 
     public function getName()
     {
-        return 'numericslider';
+        return 'valueslider';
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -46,6 +46,7 @@ class NumericSliderType extends AbstractType
             'max' => 100,
             'step' => 1,
             'disable' => false,
+            'values' => []
             // Unsupported options:   
             // http://ionden.com/a/plugins/ion.rangeSlider/en.html     
             //            'from' => 10,
@@ -106,6 +107,8 @@ class NumericSliderType extends AbstractType
         $view->vars['step'] = $options['step'];
         $view->vars['grid'] = $options['grid'] ? 'true' : 'false';        
         $view->vars['disable'] = $options['disable'] ? 'true' : 'false';
+        $view->vars['values'] = $options['values'];
+        
     }
 
     /**
@@ -133,6 +136,9 @@ class NumericSliderType extends AbstractType
         $resolver->setAllowedTypes('step', ['int', 'float']);         
         $resolver->setAllowedTypes('disable', 'bool');
         $resolver->setAllowedTypes('grid', 'bool');        
+//        $resolver->setAllowedTypes('values', function ($values) {
+//            return is_array($values);
+//        });                
     }
     
     /**
@@ -150,6 +156,15 @@ class NumericSliderType extends AbstractType
             );
         });
         
+//        $resolver->setAllowedValues('values', function($value) {
+//            foreach ($value as $val) {
+//                if (!is_numeric($val)) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        });        
+
         $resolver->setAllowedValues('step', function($value) {
             return $value > 0;
         });
