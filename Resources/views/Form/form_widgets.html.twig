@@ -612,7 +612,7 @@
 
                 {%- block numericslider_widget -%}
                 <div id="slider-{{id}}"></div>
-                <input class="hidden" {#type="range" min="{{attr['min']}}" max="{{attr['max']}}" step="{{attr['step']}}"#} id="{{id}}" name="{{full_name}}" value="{{value}}"/>
+                <input class="hidden" id="{{id}}" name="{{full_name}}" value="{{value}}"/>
                     {% if(lazyjs) %} {{ jsblocklater(block('numericslider_widget_script')) }}{% endif %}
                     {{ jslater( asset('assets/vendor/ion.rangeslider/js/ion.rangeSlider.min.js')) }}
                 {%- endblock numericslider_widget -%}
