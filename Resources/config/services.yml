@@ -77,6 +77,11 @@ services:
         tags:
             - { name: form.type, alias: rangeslider}
             
+    tm_solution_form_type.valueslider:
+        class: TMSolution\FormTypeBundle\Form\ValueSliderType
+        tags:
+            - { name: form.type, alias: valueslider }
+            
     tm_solution_form_type.buttonselect:
         class: TMSolution\FormTypeBundle\Form\ButtonSelectType
         tags:
